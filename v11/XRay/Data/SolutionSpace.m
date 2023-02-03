@@ -98,13 +98,7 @@ for h=1:size(diagram,1)
     %--------------------------------------------------
     %Sample creation
     %--------------------------------------------------
-    for i=1:d
-        if i==x1||i==x2
-            samples.x(i,:)=x(i).dsl+(-x(i).dsl+x(i).dsu)*rand(sampleSize,1);
-        else
-            samples.x(i,:)=x(i).l+(-x(i).l+x(i).u)*rand(sampleSize,1);
-        end
-    end
+    samples.x = samplePointCreation(probl_def, h);
 
     
     %--------------------------------------------------
