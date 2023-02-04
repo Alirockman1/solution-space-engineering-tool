@@ -2,7 +2,7 @@
 
 
 %% Code:
-classdef S0001_x_5d_Crash_Problem < handle
+classdef S0002_x_BeamDisplacement_Problem < handle
 	properties
 
 		%--------------------------------------------------
@@ -40,11 +40,11 @@ classdef S0001_x_5d_Crash_Problem < handle
 		legend;
 
 		% Filename of saved file
-		save_as = 'S0001_s_5d_Crash_Problem.mat';
+		save_as = 'S0002_s_BeamDisplacement_Problem.mat';
 	end
 
 	methods
-		function obj = S0001_x_5d_Crash_Problem()
+		function obj = S0002_x_BeamDisplacement_Problem()
 
 			addpath('Data\Save');
 
@@ -59,16 +59,16 @@ classdef S0001_x_5d_Crash_Problem < handle
 			obj.sampleSize=3000;
 
 				% Choosing variables to be shown in the diagramms
-				obj.diagram=[3 1;5 6;3 5;1 6;1 2;6 2];
+				obj.diagram=[1 4;2 5;3 6;1 2;2 3;3 1];
 
 				% Design variables
 				design_variables = {...
-					'F_2','N',0,1e6;...
-					'm','kg',1500,2500;...
-					'F_1','N',0,1e6;...
-					'v_0','m/s',0,100;...
-					'd_{1c}','m',0,0.6;...
-					'd_{2c}','m',0,0.6;...
+					'I1','m^4',1e-10,9e-10;...
+					'l1','m',0.5,1.5;...
+					'E1','Pa',1e10,9e10;...
+					'I2','m^4',1e-10,9e-10;...
+					'l2','m',0.5,1.5;...
+					'E2','Pa',1e10,9e10;...
 					};
 
 				% Design variables 2
@@ -83,9 +83,7 @@ classdef S0001_x_5d_Crash_Problem < handle
 
 				% Quantities of interest
 				quantities_of_interest = {...
-					'E_{rem}','J',[1 0 0], -inf, 0, 1,'Remaining energy after the crash is violated';...
-					'a_{max}','m/s^2',[0 0 1], 0, 320, 1,'Maximal negative acceleration occuring while the crash is violated';...
-					'order','-',[0.25098 0.87843 0.81569], -inf, 0, 1,'Order of the deformation of sector one and two is violated';...
+					'u_max','m',[1 0 0], 0, 0.1, 1,'Displacement is greater than the chosen critical value';...
 					};
 
 				% Quantities of interest 2
@@ -142,7 +140,7 @@ classdef S0001_x_5d_Crash_Problem < handle
 			cd(Folder_Actual)
 
 			% Function :
-			[y(1,:),y(2,:),y(3,:)] = S0001_f_5d_Crash_Problem(x(1,:),x(2,:),x(3,:),x(4,:),x(5,:),x(6,:));
+			[y(1,:)] = S0002_f_BeamDisplacement_Problem(x(1,:),x(2,:),x(3,:),x(4,:),x(5,:),x(6,:));
 
 			writeInputOutput(obj); %Create Excel file with in- and output
 
