@@ -65,17 +65,29 @@ probl_def = control_panel_figure.UserData;
 
 SystemResponse=@probl_def.SystemResponse;
 
+% design variables and quantities of interest
 x=probl_def.x;
 y=probl_def.y;
 index=probl_def.index;
 samples=probl_def.samples;
 
+% sample size and diagrams
 sampleSize=probl_def.sampleSize;
 diagram=probl_def.diagram;
 
+% number of DVs and QoIs
 m=probl_def.m;
 d=probl_def.d;
 good_design_color=probl_def.good_design_color;
+
+% Constant Parameters
+np=probl_def.np;
+if(np>0)
+    p=probl_def.p;
+    param=cell2mat({p.value});
+else
+    param = [];
+end
 
 solutionspace_line_color=probl_def.solutionspace_line_color;
 solutionspace_line_width=probl_def.solutionspace_line_width;
@@ -98,19 +110,15 @@ for h=1:size(diagram,1)
     %--------------------------------------------------
     %Sample creation
     %--------------------------------------------------
-    for i=1:d
-        if i==x1||i==x2
-            samples.x(i,:)=x(i).dsl+(-x(i).dsl+x(i).dsu)*rand(sampleSize,1);
-        else
-            samples.x(i,:)=x(i).l+(-x(i).l+x(i).u)*rand(sampleSize,1);
-        end
-    end
+    samples.x = samplePointCreation(probl_def, h);
 
     
     %--------------------------------------------------
     %Calculating System response
     %--------------------------------------------------
-    samples.y = SystemResponse(samples.x);
+    samples.y = SystemResponse(samples.x,param);
+
+
     
     %--------------------------------------------------
     %Evaluating System performance

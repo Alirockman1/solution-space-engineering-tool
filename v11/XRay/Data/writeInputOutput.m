@@ -23,7 +23,25 @@ function writeInputOutput(obj)
         xlswrite(name2,'1','design_variables');
         objExcel = actxserver('Excel.Application');
         objExcel.Workbooks.Open(fullfile(pfad,name1));
-        objExcel.ActiveWorkbook.Worksheets.Item('Tabelle1').Delete;
+        
+        try
+            objExcel.ActiveWorkbook.Worksheets.Item('Tabelle1').Delete;
+        catch PROBABLE_LANGUAGE_ISSUE % sheet 1 name depends on language of excel
+            try
+                objExcel.ActiveWorkbook.Worksheets.Item('Sheet1').Delete;
+            catch NOT_ENGLISH_OR_GERMAN
+                objExcel.ActiveWorkbook.Save;
+                objExcel.ActiveWorkbook.Close;
+                objExcel.Quit;
+                objExcel.delete;
+                
+                msg = ['Excel might be in a language other than English or German, which causes an issue with deletion of Sheet1; see writeInputOutput function.'];
+                causeException = MException('MATLAB:writeInputOutput:WrongSheetName',msg);
+                NOT_ENGLISH_OR_GERMAN = addCause(NOT_ENGLISH_OR_GERMAN,causeException);
+                rethrow(NOT_ENGLISH_OR_GERMAN);
+            end
+        end
+        
         objExcel.ActiveWorkbook.Save;
         objExcel.ActiveWorkbook.Close;
         objExcel.Quit;
