@@ -1,0 +1,1091 @@
+if system_dependent('IsDebugMode')==1, dbquit; end
+x_ray_tool
+Please enter the name of the excel data file: XRayInput_new
+[Warning: Column headers from the file were modified to make them valid MATLAB identifiers before creating variable names
+for the table. The original column headers are saved in the VariableDescriptions property.
+Set 'VariableNamingRule' to 'preserve' to use the original column headers as table variable names.] 
+
+x = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    varname
+    dispname
+    desc
+    unit
+    dslb
+    dsub
+    sblb
+    sbub
+
+
+param = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    varname
+    dispname
+    desc
+    unit
+    value
+
+
+qoi = 
+
+  <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> with fields:
+
+     varname: 'd'
+    dispname: 'd'
+        desc: 'Euclean distance to centeroid'
+        unit: ''
+        crll: -Inf
+        crul: 5
+        viol: 'The distance dalls outside the physical domain'
+       color: [0.4471 0.3961 0.3922 0 0 0 0 0 0]
+
+
+lbl = 
+
+  0×0 empty <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with no fields.
+
+
+plotdes = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    axdes
+
+
+extraopt = 
+
+  <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> with fields:
+
+          SampleSize: '3000'
+    SampleMarkerSize: '10'
+    SampleMarkerType: '.'
+      SolSpLineWidth: '2'
+       SolSpLineType: '--'
+
+The available list of functions are:
+1. S0001_f_5d_Crash_Problem
+2. S0002_f_BeamDisplacement_Problem
+3. S0003_f_TestCrashProblem
+4. S0004_f_TestCrash1
+5. S0005_f_CrashDesignProblem
+6. S0006_f_DemonstrationCrashProblem
+7. S0008_f_cfk1d
+8. S0009_f_cfk3d
+9. S0010_f_cfkIter1
+10. S0011_f_cfkIter2
+11. S0012_f_cfkIter3
+12. tutorial_01_euclidean_distance_3d
+Please enter the number of the function you want to select: 12
+You have selected function: tutorial_01_euclidean_distance_3d
+{Unrecognized function or variable 'performanceLowerLimit'.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('x_ray_tool', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\XRay\XRay_update\x_ray_tool.m', 111)" style="font-weight:bold">x_ray_tool</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\XRay\XRay_update\x_ray_tool.m',111,0)">line 111</a>)
+    performanceLowerLimit,performanceUpperLimit);
+    ^^^^^^^^^^^^^^^^^^^^^
+} 
+clear
+clc
+x_ray_tool
+Please enter the name of the excel data file: XRayInput_new
+[Warning: Column headers from the file were modified to make them valid MATLAB identifiers before creating variable names
+for the table. The original column headers are saved in the VariableDescriptions property.
+Set 'VariableNamingRule' to 'preserve' to use the original column headers as table variable names.] 
+
+x = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    varname
+    dispname
+    desc
+    unit
+    dslb
+    dsub
+    sblb
+    sbub
+
+
+param = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    varname
+    dispname
+    desc
+    unit
+    value
+
+
+qoi = 
+
+  <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> with fields:
+
+     varname: 'd'
+    dispname: 'd'
+        desc: 'Euclean distance to centeroid'
+        unit: ''
+        crll: -Inf
+        crul: 5
+        viol: 'The distance dalls outside the physical domain'
+       color: [0.4471 0.3961 0.3922 0 0 0 0 0 0]
+
+
+lbl = 
+
+  0×0 empty <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with no fields.
+
+
+plotdes = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    axdes
+
+
+extraopt = 
+
+  <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> with fields:
+
+          SampleSize: '3000'
+    SampleMarkerSize: '10'
+    SampleMarkerType: '.'
+      SolSpLineWidth: '2'
+       SolSpLineType: '--'
+
+The available list of functions are:
+1. S0001_f_5d_Crash_Problem
+2. S0002_f_BeamDisplacement_Problem
+3. S0003_f_TestCrashProblem
+4. S0004_f_TestCrash1
+5. S0005_f_CrashDesignProblem
+6. S0006_f_DemonstrationCrashProblem
+7. S0008_f_cfk1d
+8. S0009_f_cfk3d
+9. S0010_f_cfkIter1
+10. S0011_f_cfkIter2
+11. S0012_f_cfkIter3
+12. tutorial_01_euclidean_distance_3d
+Please enter the number of the function you want to select: 12
+You have selected function: tutorial_01_euclidean_distance_3d
+{Unrecognized function or variable 'performanceLowerLimit'.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('x_ray_tool', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\XRay\XRay_update\x_ray_tool.m', 118)" style="font-weight:bold">x_ray_tool</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\XRay\XRay_update\x_ray_tool.m',118,0)">line 118</a>)
+    performanceLowerLimit,performanceUpperLimit);
+    ^^^^^^^^^^^^^^^^^^^^^
+} 
+qoi.crll
+
+ans =
+
+  -Inf
+
+qoi.crul
+
+ans =
+
+     5
+
+x_ray_tool
+Please enter the name of the excel data file: XRayInput_new
+[Warning: Column headers from the file were modified to make them valid MATLAB identifiers before creating variable names
+for the table. The original column headers are saved in the VariableDescriptions property.
+Set 'VariableNamingRule' to 'preserve' to use the original column headers as table variable names.] 
+
+x = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    varname
+    dispname
+    desc
+    unit
+    dslb
+    dsub
+    sblb
+    sbub
+
+
+param = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    varname
+    dispname
+    desc
+    unit
+    value
+
+
+qoi = 
+
+  <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> with fields:
+
+     varname: 'd'
+    dispname: 'd'
+        desc: 'Euclean distance to centeroid'
+        unit: ''
+        crll: -Inf
+        crul: 5
+        viol: 'The distance dalls outside the physical domain'
+       color: [0.4471 0.3961 0.3922 0 0 0 0 0 0]
+
+
+lbl = 
+
+  0×0 empty <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with no fields.
+
+
+plotdes = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    axdes
+
+
+extraopt = 
+
+  <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> with fields:
+
+          SampleSize: '3000'
+    SampleMarkerSize: '10'
+    SampleMarkerType: '.'
+      SolSpLineWidth: '2'
+       SolSpLineType: '--'
+
+The available list of functions are:
+1. S0001_f_5d_Crash_Problem
+2. S0002_f_BeamDisplacement_Problem
+3. S0003_f_TestCrashProblem
+4. S0004_f_TestCrash1
+5. S0005_f_CrashDesignProblem
+6. S0006_f_DemonstrationCrashProblem
+7. S0008_f_cfk1d
+8. S0009_f_cfk3d
+9. S0010_f_cfkIter1
+10. S0011_f_cfkIter2
+11. S0012_f_cfkIter3
+12. tutorial_01_euclidean_distance_3d
+Please enter the number of the function you want to select: 12
+You have selected function: tutorial_01_euclidean_distance_3d
+[x(1:3).sblb] = deal([]); [x(1:3).sbub] = deal([]); 
+x.dslb
+
+ans =
+
+    -6
+
+
+ans =
+
+    -6
+
+
+ans =
+
+    -6
+
+[x.dslb]
+
+ans =
+
+    -6    -6    -6
+
+x_ray_tool
+Please enter the name of the excel data file: XRayInput_new
+[Warning: Column headers from the file were modified to make them valid MATLAB identifiers before creating variable names
+for the table. The original column headers are saved in the VariableDescriptions property.
+Set 'VariableNamingRule' to 'preserve' to use the original column headers as table variable names.] 
+
+x = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    varname
+    dispname
+    desc
+    unit
+    dslb
+    dsub
+    sblb
+    sbub
+
+
+param = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    varname
+    dispname
+    desc
+    unit
+    value
+
+
+qoi = 
+
+  <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> with fields:
+
+     varname: 'd'
+    dispname: 'd'
+        desc: 'Euclean distance to centeroid'
+        unit: ''
+        crll: -Inf
+        crul: 5
+        viol: 'The distance dalls outside the physical domain'
+       color: [0.4471 0.3961 0.3922 0 0 0 0 0 0]
+
+
+lbl = 
+
+  0×0 empty <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with no fields.
+
+
+plotdes = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    axdes
+
+
+extraopt = 
+
+  <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> with fields:
+
+          SampleSize: '3000'
+    SampleMarkerSize: '10'
+    SampleMarkerType: '.'
+      SolSpLineWidth: '2'
+       SolSpLineType: '--'
+
+The available list of functions are:
+1. S0001_f_5d_Crash_Problem
+2. S0002_f_BeamDisplacement_Problem
+3. S0003_f_TestCrashProblem
+4. S0004_f_TestCrash1
+5. S0005_f_CrashDesignProblem
+6. S0006_f_DemonstrationCrashProblem
+7. S0008_f_cfk1d
+8. S0009_f_cfk3d
+9. S0010_f_cfkIter1
+10. S0011_f_cfkIter2
+11. S0012_f_cfkIter3
+12. tutorial_01_euclidean_distance_3d
+Please enter the number of the function you want to select: 12
+You have selected function: tutorial_01_euclidean_distance_3d
+========================================================================================================================
+Initiating Phase I - Exploration: Iteration 1
+Growing candidate box... Elapsed time is 0.0038261 seconds.
+Generating new sample points in candidate box... Elapsed time is 0.0091444 seconds.
+Evaluating sample points... {Error using <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('nargin')" style="font-weight:bold">nargin</a>
+Not a valid MATLAB file.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('BottomUpMappingFunction/response', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\BottomUpMappings\BottomUpMappingFunction.m', 194)" style="font-weight:bold">BottomUpMappingFunction/response</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\BottomUpMappings\BottomUpMappingFunction.m',194,0)">line 194</a>)
+			if(nargin(obj.SystemFunction)==1)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('DesignEvaluatorBottomUpMapping/evaluate', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\DesignEvaluatorBottomUpMapping.m', 224)" style="font-weight:bold">DesignEvaluatorBottomUpMapping/evaluate</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\DesignEvaluatorBottomUpMapping.m',224,0)">line 224</a>)
+            [performanceMeasure,physicalFeasibilityMeasure,bottomUpMappingOutput] = obj.BottomUpMapping.response(designSample);
+                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('sso_box_stochastic>box_sso_evaluate_sample_points', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m', 460)" style="font-weight:bold">sso_box_stochastic>box_sso_evaluate_sample_points</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m',460,0)">line 460</a>)
+    [reserveReq,reservePf,outputEvaluation] = designEvaluator.evaluate(designSample);
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('sso_box_stochastic', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m', 179)" style="font-weight:bold">sso_box_stochastic</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m',179,0)">line 179</a>)
+        [isGoodPerformance,isPhysicallyFeasible,score,outputEvaluation] = box_sso_evaluate_sample_points(...
+                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('x_ray_tool', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\XRay\XRay_update\x_ray_tool.m', 128)" style="font-weight:bold">x_ray_tool</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\XRay\XRay_update\x_ray_tool.m',128,0)">line 128</a>)
+[designBox,problemData,iterData] = sso_box_stochastic(...
+                                   ^^^^^^^^^^^^^^^^^^^^^^
+} 
+x_ray_tool
+Please enter the name of the excel data file: XRayInput_new
+[Warning: Column headers from the file were modified to make them valid MATLAB identifiers before creating variable names
+for the table. The original column headers are saved in the VariableDescriptions property.
+Set 'VariableNamingRule' to 'preserve' to use the original column headers as table variable names.] 
+
+x = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    varname
+    dispname
+    desc
+    unit
+    dslb
+    dsub
+    sblb
+    sbub
+
+
+param = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    varname
+    dispname
+    desc
+    unit
+    value
+
+
+qoi = 
+
+  <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> with fields:
+
+     varname: 'd'
+    dispname: 'd'
+        desc: 'Euclean distance to centeroid'
+        unit: ''
+        crll: -Inf
+        crul: 5
+        viol: 'The distance dalls outside the physical domain'
+       color: [0.4471 0.3961 0.3922 0 0 0 0 0 0]
+
+
+lbl = 
+
+  0×0 empty <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with no fields.
+
+
+plotdes = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    axdes
+
+
+extraopt = 
+
+  <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> with fields:
+
+          SampleSize: '3000'
+    SampleMarkerSize: '10'
+    SampleMarkerType: '.'
+      SolSpLineWidth: '2'
+       SolSpLineType: '--'
+
+The available list of functions are:
+1. S0001_f_5d_Crash_Problem
+2. S0002_f_BeamDisplacement_Problem
+3. S0003_f_TestCrashProblem
+4. S0004_f_TestCrash1
+5. S0005_f_CrashDesignProblem
+6. S0006_f_DemonstrationCrashProblem
+7. S0008_f_cfk1d
+8. S0009_f_cfk3d
+9. S0010_f_cfkIter1
+10. S0011_f_cfkIter2
+11. S0012_f_cfkIter3
+12. tutorial_01_euclidean_distance_3d
+Please enter the number of the function you want to select: 12
+You have selected function: tutorial_01_euclidean_distance_3d
+========================================================================================================================
+Initiating Phase I - Exploration: Iteration 1
+Growing candidate box... Elapsed time is 0.0006339 seconds.
+Generating new sample points in candidate box... Elapsed time is 0.0052266 seconds.
+Evaluating sample points... {Output argument "performanceMeasure" (and possibly others) not assigned a value in the execution with
+"tutorial_01_euclidean_distance_3d" function.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('BottomUpMappingFunction/response', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\BottomUpMappings\BottomUpMappingFunction.m', 211)" style="font-weight:bold">BottomUpMappingFunction/response</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\BottomUpMappings\BottomUpMappingFunction.m',211,0)">line 211</a>)
+			    performanceMeasure = obj.SystemFunction(systemFunctionInputArgument{:});
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('DesignEvaluatorBottomUpMapping/evaluate', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\DesignEvaluatorBottomUpMapping.m', 224)" style="font-weight:bold">DesignEvaluatorBottomUpMapping/evaluate</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\DesignEvaluatorBottomUpMapping.m',224,0)">line 224</a>)
+            [performanceMeasure,physicalFeasibilityMeasure,bottomUpMappingOutput] = obj.BottomUpMapping.response(designSample);
+                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('sso_box_stochastic>box_sso_evaluate_sample_points', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m', 460)" style="font-weight:bold">sso_box_stochastic>box_sso_evaluate_sample_points</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m',460,0)">line 460</a>)
+    [reserveReq,reservePf,outputEvaluation] = designEvaluator.evaluate(designSample);
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('sso_box_stochastic', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m', 179)" style="font-weight:bold">sso_box_stochastic</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m',179,0)">line 179</a>)
+        [isGoodPerformance,isPhysicallyFeasible,score,outputEvaluation] = box_sso_evaluate_sample_points(...
+                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('x_ray_tool', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\XRay\XRay_update\x_ray_tool.m', 128)" style="font-weight:bold">x_ray_tool</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\XRay\XRay_update\x_ray_tool.m',128,0)">line 128</a>)
+[designBox,problemData,iterData] = sso_box_stochastic(...
+                                   ^^^^^^^^^^^^^^^^^^^^^^
+} 
+x_ray_tool
+Please enter the name of the excel data file: XRayInput_new
+[Warning: Column headers from the file were modified to make them valid MATLAB identifiers before creating variable names
+for the table. The original column headers are saved in the VariableDescriptions property.
+Set 'VariableNamingRule' to 'preserve' to use the original column headers as table variable names.] 
+
+x = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    varname
+    dispname
+    desc
+    unit
+    dslb
+    dsub
+    sblb
+    sbub
+
+
+param = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    varname
+    dispname
+    desc
+    unit
+    value
+
+
+qoi = 
+
+  <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> with fields:
+
+     varname: 'd'
+    dispname: 'd'
+        desc: 'Euclean distance to centeroid'
+        unit: ''
+        crll: -Inf
+        crul: 5
+        viol: 'The distance dalls outside the physical domain'
+       color: [0.4471 0.3961 0.3922 0 0 0 0 0 0]
+
+
+lbl = 
+
+  0×0 empty <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with no fields.
+
+
+plotdes = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    axdes
+
+
+extraopt = 
+
+  <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> with fields:
+
+          SampleSize: '3000'
+    SampleMarkerSize: '10'
+    SampleMarkerType: '.'
+      SolSpLineWidth: '2'
+       SolSpLineType: '--'
+
+The available list of functions are:
+1. S0001_f_5d_Crash_Problem
+2. S0002_f_BeamDisplacement_Problem
+3. S0003_f_TestCrashProblem
+4. S0004_f_TestCrash1
+5. S0005_f_CrashDesignProblem
+6. S0006_f_DemonstrationCrashProblem
+7. S0008_f_cfk1d
+8. S0009_f_cfk3d
+9. S0010_f_cfkIter1
+10. S0011_f_cfkIter2
+11. S0012_f_cfkIter3
+12. tutorial_01_euclidean_distance_3d
+Please enter the number of the function you want to select: 12
+You have selected function: tutorial_01_euclidean_distance_3d
+<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\XRay\XRay_update\x_ray_tool.m',111,1)">111 </a>selectedFunction = str2func(mFiles(selectedNumber).name(1:end-2)); % Create a function handle directly
+if system_dependent('IsDebugMode')==1, dbstep; end
+if system_dependent('IsDebugMode')==1, dbstep; end
+if system_dependent('IsDebugMode')==1, dbstep; end
+if system_dependent('IsDebugMode')==1, dbstep; end
+if system_dependent('IsDebugMode')==1, dbstep; end
+if system_dependent('IsDebugMode')==1, dbstep; end
+if system_dependent('IsDebugMode')==1, dbstep; end
+if system_dependent('IsDebugMode')==1, dbstep; end
+if system_dependent('IsDebugMode')==1, dbstep; end
+if system_dependent('IsDebugMode')==1, dbstep; end
+if system_dependent('IsDebugMode')==1, dbstep; end
+if system_dependent('IsDebugMode')==1, dbstep; end
+========================================================================================================================
+Initiating Phase I - Exploration: Iteration 1
+Growing candidate box... Elapsed time is 0.0022217 seconds.
+Generating new sample points in candidate box... Elapsed time is 0.0132107 seconds.
+Evaluating sample points... {Output argument "performanceMeasure" (and possibly others) not assigned a value in the execution with
+"tutorial_01_euclidean_distance_3d" function.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('BottomUpMappingFunction/response', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\BottomUpMappings\BottomUpMappingFunction.m', 211)" style="font-weight:bold">BottomUpMappingFunction/response</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\BottomUpMappings\BottomUpMappingFunction.m',211,0)">line 211</a>)
+			    performanceMeasure = obj.SystemFunction(systemFunctionInputArgument{:});
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('DesignEvaluatorBottomUpMapping/evaluate', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\DesignEvaluatorBottomUpMapping.m', 224)" style="font-weight:bold">DesignEvaluatorBottomUpMapping/evaluate</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\DesignEvaluatorBottomUpMapping.m',224,0)">line 224</a>)
+            [performanceMeasure,physicalFeasibilityMeasure,bottomUpMappingOutput] = obj.BottomUpMapping.response(designSample);
+                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('sso_box_stochastic>box_sso_evaluate_sample_points', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m', 460)" style="font-weight:bold">sso_box_stochastic>box_sso_evaluate_sample_points</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m',460,0)">line 460</a>)
+    [reserveReq,reservePf,outputEvaluation] = designEvaluator.evaluate(designSample);
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('sso_box_stochastic', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m', 179)" style="font-weight:bold">sso_box_stochastic</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m',179,0)">line 179</a>)
+        [isGoodPerformance,isPhysicallyFeasible,score,outputEvaluation] = box_sso_evaluate_sample_points(...
+                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('x_ray_tool', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\XRay\XRay_update\x_ray_tool.m', 128)" style="font-weight:bold">x_ray_tool</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\XRay\XRay_update\x_ray_tool.m',128,0)">line 128</a>)
+[designBox,problemData,iterData] = sso_box_stochastic(...
+                                   ^^^^^^^^^^^^^^^^^^^^^^
+} 
+x_ray_tool
+Please enter the name of the excel data file: XRayInput_new
+[Warning: Column headers from the file were modified to make them valid MATLAB identifiers before creating variable names
+for the table. The original column headers are saved in the VariableDescriptions property.
+Set 'VariableNamingRule' to 'preserve' to use the original column headers as table variable names.] 
+
+x = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    varname
+    dispname
+    desc
+    unit
+    dslb
+    dsub
+    sblb
+    sbub
+
+
+param = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    varname
+    dispname
+    desc
+    unit
+    value
+
+
+qoi = 
+
+  <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> with fields:
+
+     varname: 'd'
+    dispname: 'd'
+        desc: 'Euclean distance to centeroid'
+        unit: ''
+        crll: -Inf
+        crul: 5
+        viol: 'The distance dalls outside the physical domain'
+       color: [0.4471 0.3961 0.3922 0 0 0 0 0 0]
+
+
+lbl = 
+
+  0×0 empty <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with no fields.
+
+
+plotdes = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    axdes
+
+
+extraopt = 
+
+  <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> with fields:
+
+          SampleSize: '3000'
+    SampleMarkerSize: '10'
+    SampleMarkerType: '.'
+      SolSpLineWidth: '2'
+       SolSpLineType: '--'
+
+The available list of functions are:
+1. S0001_f_5d_Crash_Problem
+2. S0002_f_BeamDisplacement_Problem
+3. S0003_f_TestCrashProblem
+4. S0004_f_TestCrash1
+5. S0005_f_CrashDesignProblem
+6. S0006_f_DemonstrationCrashProblem
+7. S0008_f_cfk1d
+8. S0009_f_cfk3d
+9. S0010_f_cfkIter1
+10. S0011_f_cfkIter2
+11. S0012_f_cfkIter3
+12. tutorial_01_euclidean_distance_3d
+Please enter the number of the function you want to select: 12
+You have selected function: tutorial_01_euclidean_distance_3d
+<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\XRay\XRay_update\x_ray_tool.m',111,1)">111 </a>selectedFunction = str2func(mFiles(selectedNumber).name(1:end-2)); % Create a function handle directly
+if system_dependent('IsDebugMode')==1, dbcont; end
+========================================================================================================================
+Initiating Phase I - Exploration: Iteration 1
+Growing candidate box... Elapsed time is 0.0031992 seconds.
+Generating new sample points in candidate box... Elapsed time is 0.0107862 seconds.
+Evaluating sample points... {Output argument "performanceMeasure" (and possibly others) not assigned a value in the execution with
+"tutorial_01_euclidean_distance_3d" function.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('BottomUpMappingFunction/response', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\BottomUpMappings\BottomUpMappingFunction.m', 211)" style="font-weight:bold">BottomUpMappingFunction/response</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\BottomUpMappings\BottomUpMappingFunction.m',211,0)">line 211</a>)
+			    performanceMeasure = obj.SystemFunction(systemFunctionInputArgument{:});
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('DesignEvaluatorBottomUpMapping/evaluate', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\DesignEvaluatorBottomUpMapping.m', 224)" style="font-weight:bold">DesignEvaluatorBottomUpMapping/evaluate</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\DesignEvaluatorBottomUpMapping.m',224,0)">line 224</a>)
+            [performanceMeasure,physicalFeasibilityMeasure,bottomUpMappingOutput] = obj.BottomUpMapping.response(designSample);
+                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('sso_box_stochastic>box_sso_evaluate_sample_points', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m', 460)" style="font-weight:bold">sso_box_stochastic>box_sso_evaluate_sample_points</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m',460,0)">line 460</a>)
+    [reserveReq,reservePf,outputEvaluation] = designEvaluator.evaluate(designSample);
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('sso_box_stochastic', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m', 179)" style="font-weight:bold">sso_box_stochastic</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m',179,0)">line 179</a>)
+        [isGoodPerformance,isPhysicallyFeasible,score,outputEvaluation] = box_sso_evaluate_sample_points(...
+                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('x_ray_tool', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\XRay\XRay_update\x_ray_tool.m', 128)" style="font-weight:bold">x_ray_tool</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\XRay\XRay_update\x_ray_tool.m',128,0)">line 128</a>)
+[designBox,problemData,iterData] = sso_box_stochastic(...
+                                   ^^^^^^^^^^^^^^^^^^^^^^
+} 
+x_ray_tool
+Please enter the name of the excel data file: XRayInput_new
+[Warning: Column headers from the file were modified to make them valid MATLAB identifiers before creating variable names
+for the table. The original column headers are saved in the VariableDescriptions property.
+Set 'VariableNamingRule' to 'preserve' to use the original column headers as table variable names.] 
+
+x = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    varname
+    dispname
+    desc
+    unit
+    dslb
+    dsub
+    sblb
+    sbub
+
+
+param = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    varname
+    dispname
+    desc
+    unit
+    value
+
+
+qoi = 
+
+  <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> with fields:
+
+     varname: 'd'
+    dispname: 'd'
+        desc: 'Euclean distance to centeroid'
+        unit: ''
+        crll: -Inf
+        crul: 5
+        viol: 'The distance dalls outside the physical domain'
+       color: [0.4471 0.3961 0.3922 0 0 0 0 0 0]
+
+
+lbl = 
+
+  0×0 empty <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with no fields.
+
+
+plotdes = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    axdes
+
+
+extraopt = 
+
+  <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> with fields:
+
+          SampleSize: '3000'
+    SampleMarkerSize: '10'
+    SampleMarkerType: '.'
+      SolSpLineWidth: '2'
+       SolSpLineType: '--'
+
+The available list of functions are:
+1. S0001_f_5d_Crash_Problem
+2. S0002_f_BeamDisplacement_Problem
+3. S0003_f_TestCrashProblem
+4. S0004_f_TestCrash1
+5. S0005_f_CrashDesignProblem
+6. S0006_f_DemonstrationCrashProblem
+7. S0008_f_cfk1d
+8. S0009_f_cfk3d
+9. S0010_f_cfkIter1
+10. S0011_f_cfkIter2
+11. S0012_f_cfkIter3
+12. tutorial_01_euclidean_distance_3d
+Please enter the number of the function you want to select: 12
+You have selected function: tutorial_01_euclidean_distance_3d
+========================================================================================================================
+Initiating Phase I - Exploration: Iteration 1
+Growing candidate box... Elapsed time is 0.0021962 seconds.
+Generating new sample points in candidate box... Elapsed time is 0.0044392 seconds.
+Evaluating sample points... {Output argument "performanceMeasure" (and possibly others) not assigned a value in the execution with
+"tutorial_01_euclidean_distance_3d" function.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('BottomUpMappingFunction/response', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\BottomUpMappings\BottomUpMappingFunction.m', 211)" style="font-weight:bold">BottomUpMappingFunction/response</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\BottomUpMappings\BottomUpMappingFunction.m',211,0)">line 211</a>)
+			    performanceMeasure = obj.SystemFunction(systemFunctionInputArgument{:});
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('DesignEvaluatorBottomUpMapping/evaluate', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\DesignEvaluatorBottomUpMapping.m', 224)" style="font-weight:bold">DesignEvaluatorBottomUpMapping/evaluate</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\DesignEvaluatorBottomUpMapping.m',224,0)">line 224</a>)
+            [performanceMeasure,physicalFeasibilityMeasure,bottomUpMappingOutput] = obj.BottomUpMapping.response(designSample);
+                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('sso_box_stochastic>box_sso_evaluate_sample_points', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m', 460)" style="font-weight:bold">sso_box_stochastic>box_sso_evaluate_sample_points</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m',460,0)">line 460</a>)
+    [reserveReq,reservePf,outputEvaluation] = designEvaluator.evaluate(designSample);
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('sso_box_stochastic', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m', 179)" style="font-weight:bold">sso_box_stochastic</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m',179,0)">line 179</a>)
+        [isGoodPerformance,isPhysicallyFeasible,score,outputEvaluation] = box_sso_evaluate_sample_points(...
+                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('x_ray_tool', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\XRay\XRay_update\x_ray_tool.m', 128)" style="font-weight:bold">x_ray_tool</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\XRay\XRay_update\x_ray_tool.m',128,0)">line 128</a>)
+[designBox,problemData,iterData] = sso_box_stochastic(...
+                                   ^^^^^^^^^^^^^^^^^^^^^^
+} 
+clear
+clc
+x_ray_tool
+Please enter the name of the excel data file: XRayInput_new
+[Warning: Column headers from the file were modified to make them valid MATLAB identifiers before creating variable names
+for the table. The original column headers are saved in the VariableDescriptions property.
+Set 'VariableNamingRule' to 'preserve' to use the original column headers as table variable names.] 
+
+x = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    varname
+    dispname
+    desc
+    unit
+    dslb
+    dsub
+    sblb
+    sbub
+
+
+param = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    varname
+    dispname
+    desc
+    unit
+    value
+
+
+qoi = 
+
+  <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> with fields:
+
+     varname: 'd'
+    dispname: 'd'
+        desc: 'Euclean distance to centeroid'
+        unit: ''
+        crll: -Inf
+        crul: 5
+        viol: 'The distance dalls outside the physical domain'
+       color: [0.4471 0.3961 0.3922 0 0 0 0 0 0]
+
+
+lbl = 
+
+  0×0 empty <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with no fields.
+
+
+plotdes = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    axdes
+
+
+extraopt = 
+
+  <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> with fields:
+
+          SampleSize: '3000'
+    SampleMarkerSize: '10'
+    SampleMarkerType: '.'
+      SolSpLineWidth: '2'
+       SolSpLineType: '--'
+
+The available list of functions are:
+1. S0001_f_5d_Crash_Problem
+2. S0002_f_BeamDisplacement_Problem
+3. S0003_f_TestCrashProblem
+4. S0004_f_TestCrash1
+5. S0005_f_CrashDesignProblem
+6. S0006_f_DemonstrationCrashProblem
+7. S0008_f_cfk1d
+8. S0009_f_cfk3d
+9. S0010_f_cfkIter1
+10. S0011_f_cfkIter2
+11. S0012_f_cfkIter3
+12. tutorial_01_euclidean_distance_3d
+Please enter the number of the function you want to select: 12
+You have selected function: tutorial_01_euclidean_distance_3d
+========================================================================================================================
+Initiating Phase I - Exploration: Iteration 1
+Growing candidate box... Elapsed time is 3.96e-05 seconds.
+Generating new sample points in candidate box... Elapsed time is 0.0005009 seconds.
+Evaluating sample points... {Output argument "performanceMeasure" (and possibly others) not assigned a value in the execution with
+"tutorial_01_euclidean_distance_3d" function.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('BottomUpMappingFunction/response', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\BottomUpMappings\BottomUpMappingFunction.m', 211)" style="font-weight:bold">BottomUpMappingFunction/response</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\BottomUpMappings\BottomUpMappingFunction.m',211,0)">line 211</a>)
+			    performanceMeasure = obj.SystemFunction(systemFunctionInputArgument{:});
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('DesignEvaluatorBottomUpMapping/evaluate', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\DesignEvaluatorBottomUpMapping.m', 224)" style="font-weight:bold">DesignEvaluatorBottomUpMapping/evaluate</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\DesignEvaluatorBottomUpMapping.m',224,0)">line 224</a>)
+            [performanceMeasure,physicalFeasibilityMeasure,bottomUpMappingOutput] = obj.BottomUpMapping.response(designSample);
+                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('sso_box_stochastic>box_sso_evaluate_sample_points', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m', 460)" style="font-weight:bold">sso_box_stochastic>box_sso_evaluate_sample_points</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m',460,0)">line 460</a>)
+    [reserveReq,reservePf,outputEvaluation] = designEvaluator.evaluate(designSample);
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('sso_box_stochastic', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m', 179)" style="font-weight:bold">sso_box_stochastic</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m',179,0)">line 179</a>)
+        [isGoodPerformance,isPhysicallyFeasible,score,outputEvaluation] = box_sso_evaluate_sample_points(...
+                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('x_ray_tool', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\XRay\XRay_update\x_ray_tool.m', 128)" style="font-weight:bold">x_ray_tool</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\XRay\XRay_update\x_ray_tool.m',128,0)">line 128</a>)
+[designBox,problemData,iterData] = sso_box_stochastic(...
+                                   ^^^^^^^^^^^^^^^^^^^^^^
+} 
+x_ray_tool
+Please enter the name of the excel data file: XRayInput_new
+[Warning: Column headers from the file were modified to make them valid MATLAB identifiers before creating variable names
+for the table. The original column headers are saved in the VariableDescriptions property.
+Set 'VariableNamingRule' to 'preserve' to use the original column headers as table variable names.] 
+
+x = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    varname
+    dispname
+    desc
+    unit
+    dslb
+    dsub
+    sblb
+    sbub
+
+
+param = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    varname
+    dispname
+    desc
+    unit
+    value
+
+
+qoi = 
+
+  <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> with fields:
+
+     varname: 'd'
+    dispname: 'd'
+        desc: 'Euclean distance to centeroid'
+        unit: ''
+        crll: -Inf
+        crul: 5
+        viol: 'The distance dalls outside the physical domain'
+       color: [0.4471 0.3961 0.3922 0 0 0 0 0 0]
+
+
+lbl = 
+
+  0×0 empty <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with no fields.
+
+
+plotdes = 
+
+  1×3 <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> array with fields:
+
+    axdes
+
+
+extraopt = 
+
+  <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> with fields:
+
+          SampleSize: '3000'
+    SampleMarkerSize: '10'
+    SampleMarkerType: '.'
+      SolSpLineWidth: '2'
+       SolSpLineType: '--'
+
+The available list of functions are:
+1. S0001_f_5d_Crash_Problem
+2. S0002_f_BeamDisplacement_Problem
+3. S0003_f_TestCrashProblem
+4. S0004_f_TestCrash1
+5. S0005_f_CrashDesignProblem
+6. S0006_f_DemonstrationCrashProblem
+7. S0008_f_cfk1d
+8. S0009_f_cfk3d
+9. S0010_f_cfkIter1
+10. S0011_f_cfkIter2
+11. S0012_f_cfkIter3
+12. tutorial_01_euclidean_distance_3d
+Please enter the number of the function you want to select: 12
+You have selected function: tutorial_01_euclidean_distance_3d
+========================================================================================================================
+Initiating Phase I - Exploration: Iteration 1
+Growing candidate box... Elapsed time is 2.04e-05 seconds.
+Generating new sample points in candidate box... Elapsed time is 0.0004042 seconds.
+Evaluating sample points... {Output argument "performanceMeasure" (and possibly others) not assigned a value in the execution with
+"tutorial_01_euclidean_distance_3d" function.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('BottomUpMappingFunction/response', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\BottomUpMappings\BottomUpMappingFunction.m', 211)" style="font-weight:bold">BottomUpMappingFunction/response</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\BottomUpMappings\BottomUpMappingFunction.m',211,0)">line 211</a>)
+			    performanceMeasure = obj.SystemFunction(systemFunctionInputArgument{:});
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('DesignEvaluatorBottomUpMapping/evaluate', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\DesignEvaluatorBottomUpMapping.m', 224)" style="font-weight:bold">DesignEvaluatorBottomUpMapping/evaluate</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\DesignEvaluatorBottomUpMapping.m',224,0)">line 224</a>)
+            [performanceMeasure,physicalFeasibilityMeasure,bottomUpMappingOutput] = obj.BottomUpMapping.response(designSample);
+                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('sso_box_stochastic>box_sso_evaluate_sample_points', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m', 460)" style="font-weight:bold">sso_box_stochastic>box_sso_evaluate_sample_points</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m',460,0)">line 460</a>)
+    [reserveReq,reservePf,outputEvaluation] = designEvaluator.evaluate(designSample);
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('sso_box_stochastic', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m', 179)" style="font-weight:bold">sso_box_stochastic</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m',179,0)">line 179</a>)
+        [isGoodPerformance,isPhysicallyFeasible,score,outputEvaluation] = box_sso_evaluate_sample_points(...
+                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('x_ray_tool', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\XRay\XRay_update\x_ray_tool.m', 128)" style="font-weight:bold">x_ray_tool</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\XRay\XRay_update\x_ray_tool.m',128,0)">line 128</a>)
+[designBox,problemData,iterData] = sso_box_stochastic(...
+                                   ^^^^^^^^^^^^^^^^^^^^^^
+} 
+x_ray_tool
+Please enter the name of the excel data file: x_ray_tool
+[Warning: Incorrect excel file specified. Please check the file location or name] 
+[> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('x_ray_tool', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\XRay\XRay_update\x_ray_tool.m', 71)" style="font-weight:bold">x_ray_tool</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\XRay\XRay_update\x_ray_tool.m',71,0)">line 71</a>)] 
+The available list of functions are:
+1. S0001_f_5d_Crash_Problem
+2. S0002_f_BeamDisplacement_Problem
+3. S0003_f_TestCrashProblem
+4. S0004_f_TestCrash1
+5. S0005_f_CrashDesignProblem
+6. S0006_f_DemonstrationCrashProblem
+7. S0008_f_cfk1d
+8. S0009_f_cfk3d
+9. S0010_f_cfkIter1
+10. S0011_f_cfkIter2
+11. S0012_f_cfkIter3
+12. tutorial_01_euclidean_distance_3d
+Please enter the number of the function you want to select: 12
+You have selected function: tutorial_01_euclidean_distance_3d
+========================================================================================================================
+Initiating Phase I - Exploration: Iteration 1
+Growing candidate box... Elapsed time is 2.13e-05 seconds.
+Generating new sample points in candidate box... Elapsed time is 0.0006722 seconds.
+Evaluating sample points... {Output argument "performanceMeasure" (and possibly others) not assigned a value in the execution with
+"tutorial_01_euclidean_distance_3d" function.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('BottomUpMappingFunction/response', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\BottomUpMappings\BottomUpMappingFunction.m', 211)" style="font-weight:bold">BottomUpMappingFunction/response</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\BottomUpMappings\BottomUpMappingFunction.m',211,0)">line 211</a>)
+			    performanceMeasure = obj.SystemFunction(systemFunctionInputArgument{:});
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('DesignEvaluatorBottomUpMapping/evaluate', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\DesignEvaluatorBottomUpMapping.m', 224)" style="font-weight:bold">DesignEvaluatorBottomUpMapping/evaluate</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\DesignEvaluatorBottomUpMapping.m',224,0)">line 224</a>)
+            [performanceMeasure,physicalFeasibilityMeasure,bottomUpMappingOutput] = obj.BottomUpMapping.response(designSample);
+                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('sso_box_stochastic>box_sso_evaluate_sample_points', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m', 460)" style="font-weight:bold">sso_box_stochastic>box_sso_evaluate_sample_points</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m',460,0)">line 460</a>)
+    [reserveReq,reservePf,outputEvaluation] = designEvaluator.evaluate(designSample);
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('sso_box_stochastic', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m', 179)" style="font-weight:bold">sso_box_stochastic</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\sso-toolbox\SolutionSpacesToolbox\sso_box_stochastic.m',179,0)">line 179</a>)
+        [isGoodPerformance,isPhysicallyFeasible,score,outputEvaluation] = box_sso_evaluate_sample_points(...
+                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('x_ray_tool', 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\XRay\XRay_update\x_ray_tool.m', 129)" style="font-weight:bold">x_ray_tool</a> (<a href="matlab: opentoline('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\XRay\XRay_update\x_ray_tool.m',129,0)">line 129</a>)
+[designBox,problemData,iterData] = sso_box_stochastic(...
+                                   ^^^^^^^^^^^^^^^^^^^^^^
+} 
+tutorial_02_sso_box_sphere

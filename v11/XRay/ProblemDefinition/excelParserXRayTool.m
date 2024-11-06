@@ -11,6 +11,7 @@
 
 function [x,param,qoi,lbl,plotdes,extraopt] = excelParserXRayTool(filename)
     %% Read Excel Spreadsheets Information
+    cd('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\XRay\ProblemDefinition')
     warning('OFF','MATLAB:table:ModifiedAndSavedVarnames'); % yes, I know, sheet names will be changed when converted to variables...
     % Design Variables
     opts = detectImportOptions(filename,'Sheet','Design Variables');
@@ -39,15 +40,28 @@ function [x,param,qoi,lbl,plotdes,extraopt] = excelParserXRayTool(filename)
     warning('ON','MATLAB:table:ModifiedAndSavedVarnames'); % ok, reset it now
     
     %% Read Color Information - Quantities of Interest
-    excel = actxserver('Excel.Application'); % start excel
-    excel.Visible = false; % optional, make sure excel doesn't open
-    workbook = excel.Workbooks.Open([pwd,'\',filename]); % open excel file using full path
-    worksheet = workbook.Worksheets.Item('Quantities of Interest'); % get worksheet reference
-    for i=1:size(Tqoi,1)
-        Tqoi.ColorOfPointsWhereViolated{i} = worksheet.Cells.Item(8).Item(i+1).Interior.Color; % 8=column 'H'; i+1=skip first row
+    % Read the Excel file directly into a table
+    dataTable = readtable(fullfile(pwd, filename), 'Sheet', 'Quantities of Interest');
+    
+    % Assuming column H corresponds to the 8th column in the table
+    colorTexts = dataTable{:, 8}; % Extract all values from column H
+    
+    % List of recognized color names
+    validColorNames = {'red', 'green', 'blue', 'yellow', 'black', 'white', 'cyan', 'magenta', 'gray', 'orange', 'pink', 'purple', 'brown'};
+    
+    % Loop through each color text
+    for i = 1:length(colorTexts)
+        colorText = colorTexts{i}; % Get the color text
+    
+        % Check if it's a valid hex code or color name
+        if isHexColor(colorText)
+            Tqoi.ColorOfPointsWhereViolated{i} = colorText; % Store valid hex code
+        elseif ismember(lower(colorText), validColorNames)
+            Tqoi.ColorOfPointsWhereViolated{i} = colorText; % Store valid color name
+        else
+            error('Invalid color format in row %d. Must be a hex code or a recognized color name.', i);
+        end
     end
-    workbook.Close;
-    excel.Quit;
 
     %% Parse: Design Variables
     x = struct([]);
@@ -58,6 +72,7 @@ function [x,param,qoi,lbl,plotdes,extraopt] = excelParserXRayTool(filename)
         x(i).unit = Tx.Unit{i};
         x(i).dslb = readNumericEntries(Tx.DesignSpaceLowerBound{i});
         x(i).dsub = readNumericEntries(Tx.DesignSpaceUpperBound{i});
+        x(i).dinit = readNumericEntries(Tx.InitialDesign{i});
         x(i).sblb = readNumericEntries(Tx.SolutionBoxLowerBound{i});
         x(i).sbub = readNumericEntries(Tx.SolutionBoxUpperBound{i});
     end
@@ -90,6 +105,7 @@ function [x,param,qoi,lbl,plotdes,extraopt] = excelParserXRayTool(filename)
     for i=1:size(Tlbl,1)
         lbl(i).varname = Tlbl.LabelName{i};
         lbl(i).dispname = Tlbl.TextToDisplay{i};
+        lbl(i).varno = Tlbl.DesignVarNo{i};
         lbl(i).desc = Tlbl.Description{i};
         lbl(i).unit = Tlbl.Unit{i};
         lbl(i).val = Tlbl.ValueOfDesignVariables{i};
@@ -98,8 +114,15 @@ function [x,param,qoi,lbl,plotdes,extraopt] = excelParserXRayTool(filename)
     
     %% Parse: Desired Plots
     plotdes = struct([]);
+    % Get unique variable names
+    uniqueVariables = unique([Tplot.DesignVariableX_axis; Tplot.DesignVariableY_axis]);
+    
+    % Create a mapping from variable names to numerical identifiers
+    varMapping = containers.Map(uniqueVariables, 1:length(uniqueVariables));
+
     for i=1:size(Tplot,1)
-        plotdes(i).axdes = {Tplot.DesignVariableX_axis{i}, Tplot.DesignVariableY_axis{i}};
+        plotdes(i).axdes = {varMapping(Tplot.DesignVariableX_axis{i}), ...
+                        varMapping(Tplot.DesignVariableY_axis{i})};
     end
     
     
@@ -175,7 +198,13 @@ function [x,param,qoi,lbl,plotdes,extraopt] = excelParserXRayTool(filename)
     
     
     %% Input Validation: Labels
-    
+    label = struct([]);
+    for i=1:size(Tlbl,1)
+        label(i).name = Tlbl.LabelName{i};
+        label(i).text = Tlbl.TextToDisplay{i};
+        label(i).desc = Tlbl.Description{i};
+        label(i).unit = Tlbl.Unit{i};
+    end
     
     %% Input Validation: Desired Plots
     
@@ -199,4 +228,13 @@ function d = readNumericEntries(s)
     commas = (s==',');
     s(commas) = '.';
     d = str2double(s);
+end
+
+% Function to check if the string is a valid hex color code or a known colour
+function isValid = isHexColor(colorStr)
+    isValid = false;
+    if ischar(colorStr) && length(colorStr) == 7 && colorStr(1) == '#'
+        hexPart = colorStr(2:end); % Skip the '#' part
+        isValid = all(isstrprop(hexPart, 'xdigit')); % Check if the rest is valid hex digits
+    end
 end

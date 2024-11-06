@@ -1,6 +1,10 @@
 clc
 clear
 close all
+
+addpath("E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\XRay")
+cd("E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\XRay")
+
 main_dir = pwd;
 cd(fullfile(main_dir,'Data','Design_Problems'));
 problems=dir;

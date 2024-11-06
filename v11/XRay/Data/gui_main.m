@@ -3,6 +3,7 @@ function gui_main(problem)
 clearvars -except problem f result_figure
 clc
 
+profile on
 
 close(findobj('type','figure','name','user interface'));
 close(findobj('type','figure','name','results'));
