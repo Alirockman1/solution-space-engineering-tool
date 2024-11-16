@@ -8,13 +8,16 @@ global textHandles x sliderHandles h PlotData;
 currentFile = matlab.desktop.editor.getActiveFilename;  % Get the full path of the active file
 addpath(fileparts(currentFile));  % Add the folder containing the active file to the path
 
-% Add all relevent folders and subfolders to the MATLAB path
-addpath(genpath("E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo"));
+projectRoot = fileparts(currentFile);  
+
+% Add all relevant folders and subfolders to the MATLAB path dynamically
+addpath(genpath(fullfile(projectRoot, "XRay", "Data", "Design_Problems")));
 
 %% Compatability check %%
 
-% List all enteries in Design Problems folder
-cd("E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\XRay\Data\Design_Problems")
+% List all entries in the Design Problems folder
+designProblemsFolder = fullfile(projectRoot, 'XRay', 'Data', 'Design_Problems');
+cd(designProblemsFolder);  % Change directory to Design Problems
 problems=dir;
 problems=problems([problems.isdir]==0);
 entries = cell(1,length(problems));
@@ -57,6 +60,9 @@ end
 % plotdes:  struct containing desired combination of Design variables
 % extraopt: Additional information for plotting solution space
 
+% Add all relevant folders and subfolders to the MATLAB path dynamically
+addpath(genpath(fullfile(projectRoot, "XRay")));
+
 % excel file to open using the parser
 excel_file = input('Please enter the name of the excel data file: ','s');
 excel_file = [excel_file '.xlsx'];
@@ -70,8 +76,8 @@ end
 %% Function Call %%
 
 % Provide all available function calls
-% Define the folder path (update the path as per your needs)
-folderPath = 'E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\Merging\Systems';
+% Define the folder path for available functions (dynamically set)
+folderPath = fullfile(projectRoot, 'XRay', 'Data', 'Design_Problems', 'Systems');
 
 % Get all .m files in the folder
 mFiles = dir(fullfile(folderPath, '*.m'));
@@ -107,7 +113,7 @@ GUI(x,param,qoi,lbl,plotdes,extraopt,selectedFunction)
 %%
 
 function GUI(x, param, qoi, lbl, plotdes, extraopt, selectedFunction)
-    global textHandles sliderHandles h;
+    global textHandles sliderHandles h designEvaluator;
     %% Create GUI layout
     % Define GUI Screen
     hFig = figure('Name', 'Solution Space GUI', 'NumberTitle', 'off', 'Position', [100, 100, 800, 600]);
@@ -167,7 +173,7 @@ function GUI(x, param, qoi, lbl, plotdes, extraopt, selectedFunction)
 
     %% 1. Panel to display selected values dynamically (for nVars variables)
     selectionPanel = uipanel('Parent', hFig, 'Title', 'Selected Values from Plot', ...
-                             'Position', [0.05 0.15 0.25 0.4]);
+                             'Position', [0.05 0.075 0.25 0.5]);
 
     % Create a dynamic display for each variable
     textAreas = gobjects(nVars+1, 1);  % Store text area handles
@@ -183,13 +189,15 @@ function GUI(x, param, qoi, lbl, plotdes, extraopt, selectedFunction)
     end
 
     % Labels for design variable
-    uicontrol('Parent', selectionPanel, 'Style', 'text', 'String', 'QoI', ...
-              'Units', 'normalized', 'Position', [0.05, 1 - (tA+1)*0.15, 0.3, 0.1]);
-
-    % Text areas for design variable
-    textAreas(tA+1) = uicontrol('Parent', selectionPanel, 'Style', 'edit', 'String', 'N/A', ...
-                             'Units', 'normalized', 'Position', [0.35, 1 - (tA+1)*0.15, 0.6, 0.1], ...
-                             'Enable', 'off');
+    for JA = 1:length(qoi.varname)
+        uicontrol('Parent', selectionPanel, 'Style', 'text', 'String', 'QoI', ...
+                  'Units', 'normalized', 'Position', [0.05, 1 - (tA+JA)*0.15, 0.3, 0.1]);
+    
+        % Text areas for design variable
+        textAreas(tA+1) = uicontrol('Parent', selectionPanel, 'Style', 'edit', 'String', 'N/A', ...
+                                 'Units', 'normalized', 'Position', [0.35, 1 - (tA+JA)*0.15, 0.6, 0.1], ...
+                                 'Enable', 'off');
+    end
 
     %% 2. Add a Button to Select Data from the Plot
     uicontrol('Parent', selectionPanel, 'Style', 'pushbutton', 'String', 'Select Data from Plot', ...
@@ -249,7 +257,18 @@ function GUI(x, param, qoi, lbl, plotdes, extraopt, selectedFunction)
               'Callback', @(src, event) updatePlot(x,lbl,plotdes,extraopt,designEvaluator,nVars,sliderHandles));
     
     %% 4. Rerun the Optimization
+    uicontrol('Parent', hFig, 'Style', 'pushbutton', 'String', 'Optimize', ...
+              'Units', 'normalized', 'Position', [0.4, 0.05, 0.2, 0.1], ...
+              'Callback', @(src, event) optimizeDesign(x, param, qoi, selectedFunction));
+
  
+end
+
+%% Function to Run Optimization
+function optimizeDesign(x, param, qoi, selectedFunction)
+    global designEvaluator;
+    designEvaluator = SolutionSpace(x, param, qoi, selectedFunction);
+    disp('Optimization completed.');
 end
 
 %% Function to update plot
@@ -387,8 +406,8 @@ function selectDataFromPlot(lbl,textAreas)
 
             % Extract the design samples for the current plot
             designSamples = PlotData(i).DesignSample;
-            qoi = PlotData(i).EvaluatorOutput.PerformanceMeasure;
-            feasibility = PlotData(i).EvaluatorOutput.PhysicalFeasibilityMeasure;
+            QOI = PlotData(i,:).EvaluatorOutput.PerformanceMeasure;
+            feasibility = PlotData(i,:).EvaluatorOutput.PhysicalFeasibilityMeasure;
 
             % Get the selected design variable values
             selectedVars = [xClick, yClick];
@@ -399,7 +418,7 @@ function selectDataFromPlot(lbl,textAreas)
             % Find the index of the closest point
             [~, closestIndex] = min(distances);
             closestPoint = designSamples(closestIndex, :);
-            closestqoi   = qoi(closestIndex);
+            closestqoi   = QOI(closestIndex);
         end
     end
 
@@ -407,7 +426,10 @@ function selectDataFromPlot(lbl,textAreas)
     for i = 1:length({lbl.dispname})
         textAreas(i).String = num2str(closestPoint(i), '%.4f');
     end
-    textAreas(i+1).String = num2str(closestqoi, '%.4f');
+
+    for j = 1:length(closestqoi)
+    textAreas(i+j).String = num2str(closestqoi, '%.4f');
+    end
 end
 
 %% Map Variables to Variable Number

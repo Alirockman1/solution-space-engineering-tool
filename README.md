@@ -1,6 +1,6 @@
 ## Welcome to instructions to run the new X-Ray tool ##
 
-1. The new code is located in the folder ''\xray-matlab\v11\XRay\XRay_update\GUI_x_ray
+1. The new code is located in the folder ''\xray-matlab\v11\GUI_x_ray.m
 
 2. Ensure all folders (including subfolders) are added to the directory before beginning the execution.
 	Desired folder: ''\xray-matlab\v11\XRay\ProblemDefinition 
@@ -14,7 +14,7 @@
 
 5. Following which you will have to state the problem you want to solve (number corresponding to the problems in the list)
 
-6. Once the optimization is completed the GUI along with the graph will be displayed.
+6. Initially the GUI along with the graph will be displayed.
 
 7. Functions included in GUI:
 	A) Changing the box shaped solution space using the sliders.
@@ -22,3 +22,4 @@
 	C) Changing the box shaped solution space by manually dragging the boundaries.
 	D) Displaying a design point from within the solution spaces.
 	E) Saving the solution space images and list of good/bas designs.
+	F) Allowing box shape solution space optimization
