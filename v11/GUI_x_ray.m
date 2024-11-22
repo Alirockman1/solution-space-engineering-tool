@@ -256,7 +256,7 @@ function GUI(x, qoi, lbl, plotdes, extraopt, designEvaluator)
     %% Update Plot button at the bottom of the GUI
     uicontrol('Parent', hFig, 'Style', 'pushbutton', 'String', 'Update Plot', ...
               'Units', 'normalized', 'Position', [0.325, 0.035, 0.2, 0.08], ...
-              'Callback', @(src, event) updatePlot(x,lbl,plotdes,extraopt,designEvaluator,nVars,sliderHandles));
+              'Callback', @(src, event) updatePlot(x,lbl,plotdes,extraopt,designEvaluator,nVars));
     
     %% 4. Rerun the Optimization
     uicontrol('Parent', hFig, 'Style', 'pushbutton', 'String', 'Optimize', ...
@@ -297,12 +297,12 @@ function runOptimization(x, designEvaluator)
 end
 
 %% Function to update plot
-function updatePlot(x,lbl,plotdes,extraopt,designEvaluator,nVars,sliderHandles)
-    global h OptimdesignBox;
+function updatePlot(x,lbl,plotdes,extraopt,designEvaluator,nVars)
+    global h OptimdesignBox textHandles;
     % Get current slider values for bounds
     for i = 1:nVars
-        lb = get(sliderHandles(i, 1), 'Value');
-        ub = get(sliderHandles(i, 2), 'Value');
+        lb = str2double(get(textHandles(i, 1), 'String'));
+        ub = str2double(get(textHandles(i, 2), 'String'));
         
         % Update design space bounds in the main code logic (if necessary)
         x(i).sblb = lb;
