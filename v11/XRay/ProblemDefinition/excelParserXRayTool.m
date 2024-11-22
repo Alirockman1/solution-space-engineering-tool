@@ -9,9 +9,10 @@
 %   - qoi : structure of quantities of interest
 %   - lbl : structure of labels
 
-function [x,param,qoi,lbl,plotdes,extraopt] = excelParserXRayTool(filename)
+function [x,param,qoi,lbl,plotdes,extraopt] = excelParserXRayTool(filename,projectRoot)
     %% Read Excel Spreadsheets Information
-    cd('E:\My Folder\Ali Documents\Job Documents\Hiwi\Hiwi - LPL - Eduardo\xray-matlab\v11\XRay\ProblemDefinition')
+    fullfile(projectRoot, 'XRay', 'ProblemDefinition');
+    cd(fullfile(projectRoot, 'XRay', 'ProblemDefinition'))
     warning('OFF','MATLAB:table:ModifiedAndSavedVarnames'); % yes, I know, sheet names will be changed when converted to variables...
     % Design Variables
     opts = detectImportOptions(filename,'Sheet','Design Variables');

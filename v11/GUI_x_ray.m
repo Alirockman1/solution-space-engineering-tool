@@ -61,14 +61,14 @@ end
 % extraopt: Additional information for plotting solution space
 
 % Add all relevant folders and subfolders to the MATLAB path dynamically
-addpath(genpath(fullfile(projectRoot, "XRay")));
+addpath(genpath(fullfile(projectRoot, "XRay", "ProblemDefinition")));
 
 % excel file to open using the parser
 excel_file = input('Please enter the name of the excel data file: ','s');
 excel_file = [excel_file '.xlsx'];
 
 try
-    [x,param,qoi,lbl,plotdes,extraopt] = excelParserXRayTool(excel_file);
+    [x,param,qoi,lbl,plotdes,extraopt] = excelParserXRayTool(excel_file,projectRoot);
 catch
     warning('Incorrect excel file specified. Please check the file location or name');
 end
