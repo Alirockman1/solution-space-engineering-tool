@@ -454,8 +454,8 @@ function selectDataFromPlot(lbl,textAreas)
 
             % Extract the design samples for the current plot
             designSamples = PlotData(i).DesignSample;
-            QOI = PlotData(i,:).EvaluatorOutput.PerformanceMeasure;
-            feasibility = PlotData(i,:).EvaluatorOutput.PhysicalFeasibilityMeasure;
+            QOI = PlotData(i).EvaluatorOutput.PerformanceMeasure;
+            feasibility = PlotData(i).EvaluatorOutput.PhysicalFeasibilityMeasure;
 
             % Get the selected design variable values
             selectedVars = [xClick, yClick];
@@ -629,6 +629,7 @@ end
 
 %% Function to drag the boundaries
 function startDragFcn(~, ~)
+    global x textHandles;
     % Get the figure and current axes
     fig = gcf;
     if fig.Number ~= 2  % Check if the current figure is not Figure 2
@@ -667,7 +668,7 @@ function startDragFcn(~, ~)
     end
 
     function stopDragFcn(~, ~)
-        global x textHandles;
+        % global x textHandles;
         % Get the current figure and axes
         fig = gcf;
         if fig.Number ~= 2
