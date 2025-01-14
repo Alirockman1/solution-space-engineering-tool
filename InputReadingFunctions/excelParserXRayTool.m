@@ -9,10 +9,8 @@
 %   - qoi : structure of quantities of interest
 %   - lbl : structure of labels
 
-function [x,param,qoi,lbl,plotdes,extraopt] = excelParserXRayTool(filename,projectRoot)
+function [x,param,qoi,lbl,plotdes,extraopt] = excelParserXRayTool(filename)
     %% Read Excel Spreadsheets Information
-    fullfile(projectRoot, 'XRay', 'ProblemDefinition');
-    cd(fullfile(projectRoot, 'XRay', 'ProblemDefinition'))
     warning('OFF','MATLAB:table:ModifiedAndSavedVarnames'); % yes, I know, sheet names will be changed when converted to variables...
     % Design Variables
     opts = detectImportOptions(filename,'Sheet','Design Variables');
@@ -42,7 +40,7 @@ function [x,param,qoi,lbl,plotdes,extraopt] = excelParserXRayTool(filename,proje
     
     %% Read Color Information - Quantities of Interest
     % Read the Excel file directly into a table
-    dataTable = readtable(fullfile(pwd, filename), 'Sheet', 'Quantities of Interest');
+    dataTable = readtable(filename, 'Sheet', 'Quantities of Interest');
     
     % Assuming column H corresponds to the 8th column in the table
     colorTexts = dataTable{:, 8}; % Extract all values from column H

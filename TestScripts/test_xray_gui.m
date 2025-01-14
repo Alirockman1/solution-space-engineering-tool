@@ -31,9 +31,9 @@ rng(4);
 
 %% Documentation / Archive
 rngState = rng;
-saveFolder = save_diary_files(mfilename);
-goldenRatio = (1+sqrt(5))/2;
-figureSize = [goldenRatio 1]*8.5;
+% saveFolder = save_diary_files(mfilename);
+% goldenRatio = (1+sqrt(5))/2;
+% figureSize = [goldenRatio 1]*8.5;
 
 
 %% get information regarding problem

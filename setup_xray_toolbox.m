@@ -68,3 +68,53 @@ clear toolboxFolderPath
 %% Add SSO-Toolbox
 run('./sso-toolbox/setup_sso_toolbox.m');
 
+%% Compatability check %%
+
+% Check correct version of MATLAB
+% Retrieve version
+v = version;
+pos = strfind(v,'R');
+v = v(pos:pos+5);
+
+jear = str2double(v(2:5));
+releas = v(end);
+
+if ~(jear >= 2019 || (jear == 2018 && releas == 'b'))
+    error('Your current MATLAB version is not capable of running this version of the programm.\n%s',...
+        'Please use MATLAB R2018b or newer versions of MATLAB or consider using an older version of the SSE-program.')
+end
+
+% Check if Image Processing Toolbox is installed
+v = ver;
+for i=1:length(v)
+    if strcmp(v(i).Name,'Image Processing Toolbox')
+        installed = 1;
+        break
+    else
+        installed = 0;
+    end
+end
+
+if ~installed
+    
+    error('Image Processing Toolbox is not installed.\n%s',...
+        'Please install the required toolbox or consider using an older version of the SSE-program.')
+end
+
+
+% Check if Image Processing Toolbox is installed
+v = ver;
+for i=1:length(v)
+    if strcmp(v(i).Name,'Image Processing Toolbox')
+        installed = 1;
+        break
+    else
+        installed = 0;
+    end
+end
+
+if ~installed
+    
+    error('Image Processing Toolbox is not installed.\n%s',...
+        'Please install the required toolbox or consider using an older version of the SSE-program.')
+end
