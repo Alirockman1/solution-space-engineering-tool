@@ -43,7 +43,7 @@ function [x,param,qoi,lbl,plotdes,extraopt] = excelParserXRayTool(filename)
     dataTable = readtable(filename, 'Sheet', 'Quantities of Interest');
     
     % Assuming column H corresponds to the 8th column in the table
-    colorTexts = dataTable{:, 8}; % Extract all values from column H
+    colorTexts = dataTable{:, end}; % Extract all values from column H
     
     % List of recognized color names
     validColorNames = {'red', 'green', 'blue', 'yellow', 'black', 'white', 'cyan', 'magenta', 'gray', 'orange', 'pink', 'purple', 'brown'};
@@ -93,6 +93,7 @@ function [x,param,qoi,lbl,plotdes,extraopt] = excelParserXRayTool(filename)
         qoi(i).dispname = Tqoi.DisplayName{i};
         qoi(i).desc = Tqoi.Description{i};
         qoi(i).unit = Tqoi.Unit{i};
+        qoi(i).status = Tqoi.Status{i};
         qoi(i).crll = readNumericEntries(Tqoi.CriticalLowerValue{i});
         qoi(i).crul = readNumericEntries(Tqoi.CriticalUpperValue{i});
         qoi(i).viol = Tqoi.TextWhenViolated{i};

@@ -3,7 +3,7 @@ clear all;
 close all;
 
 % Global Variables
-global textHandles sliderHandles h PlotData;
+global textHandles sliderHandles h PlotData qoi x;
 
 currentFile = matlab.desktop.editor.getActiveFilename;  % Get the full path of the active file
 runfilelocation = fileparts(currentFile);
@@ -24,6 +24,8 @@ excelfilepath = fullfile(projectRoot, 'ProblemDefinition');
 % excel file to open using the parser
 excel_file = input('Please enter the name of the excel data file: ','s');
 excel_file = fullfile(excelfilepath, [excel_file, '.xlsx']);
+
+[x,param,qoi,lbl,plotdes,extraopt] = excelParserXRayTool(excel_file);
 
 try
     [x,param,qoi,lbl,plotdes,extraopt] = excelParserXRayTool(excel_file);
@@ -77,7 +79,7 @@ GUI(x,qoi,lbl,plotdes,extraopt,designEvaluator)
 function GUI(x, qoi, lbl, plotdes, extraopt, designEvaluator)
     
     % Define Variables
-    global x textHandles sliderHandles h textHandles_qoi;
+    global x qoi textHandles sliderHandles h textHandles_qoi;
 
     %% Create GUI layout
 
@@ -133,7 +135,7 @@ function GUI(x, qoi, lbl, plotdes, extraopt, designEvaluator)
                                         'Position', [75, 45, 290, 215], ... % Position in normalized units
                                         'ValueChangedFcn', @(src, event) slider_callback(i)); % Callback for value change
 
-        % Textboxes for the lower and upper bounds
+        % Textboxes for the Solution Space lower and upper bounds
         textHandles(i, 1) = uicontrol('Parent', variablePanel, 'Style', 'edit', 'String', num2str(x(i).sblb, '%.2f'), ...
                                       'Units', 'normalized', 'Position', [0.035, 0.40, 0.1, 0.35], ...
                                       'Callback', @(src, event) textbox_callback(i, 1)); % Lower Text Handle
@@ -141,6 +143,22 @@ function GUI(x, qoi, lbl, plotdes, extraopt, designEvaluator)
         textHandles(i, 2) = uicontrol('Parent', variablePanel, 'Style', 'edit', 'String', num2str(x(i).sbub, '%.2f'), ...
                                       'Units', 'normalized', 'Position', [0.865, 0.40, 0.1, 0.35], ...
                                       'Callback', @(src, event) textbox_callback(i, 2)); % Upper Text Handle
+
+        % Textboxes for the Design Space Bounds
+        designSpaceHandles(i, 1) = uicontrol('Parent', variablePanel, 'Style', 'edit', ...
+                                         'String', num2str(x(i).dslb, '%.2f'), ...
+                                         'Units', 'normalized', ...
+                                         'Position', [0.0425, 0.05, 0.075, 0.25], ... % Smaller, centered under lower bound
+                                         'FontSize', 7.5, 'ForegroundColor', 'red', ...
+                                         'Callback', @(src, event) design_textbox_callback(src, i, 1)); % Lower Design Space
+
+        designSpaceHandles(i, 2) = uicontrol('Parent', variablePanel, 'Style', 'edit', ...
+                                         'String', num2str(x(i).dsub, '%.2f'), ...
+                                         'Units', 'normalized', ...
+                                         'Position', [0.875, 0.05, 0.0715, 0.25], ... % Smaller, centered under upper bound
+                                         'FontSize', 7.5, 'ForegroundColor', 'red', ...
+                                         'Callback', @(src, event) design_textbox_callback(src, i, 2)); % Upper Design Space
+
     end
 
     %% 2. Tab for QoI %%
@@ -162,12 +180,12 @@ function GUI(x, qoi, lbl, plotdes, extraopt, designEvaluator)
                            'Units', 'normalized', ...
                            'Position', [0.05, 0.95 - i * panelHeight, 0.9, panelHeight]);
     
-        % Label for 'Active'
-        uicontrol('Parent', QOIPanel, 'Style', 'text', 'String', 'Active', ...
+        % Label for 'InActive'
+        uicontrol('Parent', QOIPanel, 'Style', 'text', 'String', 'InActive', ...
                   'Units', 'normalized', 'Position', [0.01, 0.65, 0.15, 0.3], ...
                   'HorizontalAlignment', 'center');
     
-        % Checkbox for 'Active'
+        % Checkbox for 'InActive'
         chkHandles(i) = uicontrol('Parent', QOIPanel, ...
                         'Style', 'checkbox', ...
                         'Units', 'normalized', ...
@@ -189,15 +207,13 @@ function GUI(x, qoi, lbl, plotdes, extraopt, designEvaluator)
         textHandles_qoi(i, 1) = uicontrol('Parent', QOIPanel, 'Style', 'edit', ...
                                           'String', num2str(qoi(i).crll, '%.2f'), ...
                                           'Units', 'normalized', ...
-                                          'Position', [0.20, 0.815, 0.2, 0.075], ...
-                                          'Callback', @(src, event) update_qoi_callback(i, 1)); % Centered below 'Lower Bound'
+                                          'Position', [0.20, 0.815, 0.2, 0.075]); % Centered below 'Lower Bound'
     
         % Textbox for the upper bound
         textHandles_qoi(i, 2) = uicontrol('Parent', QOIPanel, 'Style', 'edit', ...
                                           'String', num2str(qoi(i).crul, '%.2f'), ...
                                           'Units', 'normalized', ...
-                                          'Position', [0.50, 0.815, 0.2, 0.075], ...
-                                          'Callback', @(src, event) update_qoi_callback(i, 1)); % Centered below 'Upper Bound'
+                                          'Position', [0.50, 0.815, 0.2, 0.075]); % Centered below 'Upper Bound'
         
         % Label for 'Colour'
         uicontrol('Parent', QOIPanel, 'Style', 'text', 'String', 'Colour', ...
@@ -217,12 +233,17 @@ function GUI(x, qoi, lbl, plotdes, extraopt, designEvaluator)
         % Add the uicolorpicker with adjusted position
         colorPicker = uicolorpicker('Parent', QOIPanel, ...
                                     'Position', absPos, ...
-                                    ValueChangedFcn=@(src,event) updateColor(src,event,p));
-
+                                    ValueChangedFcn=@(src,event) updateColor(src,i));
     end
 
+    %% 3. Update QOI
+    uicontrol('Parent', QoItab, 'Style', 'pushbutton', 'String', 'Update QOI Data', ...
+              'Units', 'normalized', 'Position', [0.375, 0.035, 0.25, 0.08], ...
+              'BackgroundColor', [0.94, 0.94, 0.94], ...
+              'Callback', @(src, event) update_qoi_callback(nQOI));
 
-    %% 3. Tab to display selected values dynamically (for nVars variables) %%
+
+    %% 4. Tab to display selected values dynamically (for nVars variables) %%
     selectionPanel = uipanel('Parent', tab2, 'Title', 'Selected Values from Plot', ...
                              'Units', 'normalized',...
                              'Position', [0.015 0.15 0.9 0.875]);
@@ -256,7 +277,7 @@ function GUI(x, qoi, lbl, plotdes, extraopt, designEvaluator)
               'Units', 'normalized', 'Position', [0.15, 1 - (tA+2.5)*0.15, 0.6, 0.1], ...
               'Callback', @(src, event) selectDataFromPlot(lbl,textAreas));
 
-    %% 4. Tab to Create Post-processing Panel %%
+    %% 5. Tab to Create Post-processing Panel %%
     % Default names and paths for saving if user doesn't provide inputs
     defaultExcelName = 'default_results.xlsx';
     defaultFigureName = 'default_figure.png';
@@ -296,24 +317,18 @@ function GUI(x, qoi, lbl, plotdes, extraopt, designEvaluator)
                                                              defaultSavePath, ...       % Default save path
                                                              h));
     
-    %% 5. Update Plot button at the bottom of the GUI
+    %% 6. Update Plot button at the bottom of the GUI
     uicontrol('Parent', hFig, 'Style', 'pushbutton', 'String', 'Update Plot', ...
               'Units', 'normalized', 'Position', [0.325, 0.035, 0.2, 0.08], ...
-              'Callback', @(src, event) updatePlot(x,lbl,plotdes,extraopt,designEvaluator,nVars));
+              'Callback', @(src, event) updatePlot(lbl,plotdes,extraopt,designEvaluator,nVars));
     
-    %% 6. Rerun the Optimization
+    %% 7. Rerun the Optimization
     uicontrol('Parent', hFig, 'Style', 'pushbutton', 'String', 'Optimize', ...
               'Units', 'normalized', 'Position', [0.55, 0.035, 0.1, 0.08], ...
               'BackgroundColor', [0.94, 0.94, 0.94], ...
               'Callback', @(src, event) runOptimization(x, designEvaluator));
 
-    %% 7. Update Design Bounds
-    uicontrol('Parent', hFig, 'Style', 'pushbutton', 'String', 'Update QOI Limits', ...
-              'Units', 'normalized', 'Position', [0.55, 0.035, 0.1, 0.08], ...
-              'BackgroundColor', [0.94, 0.94, 0.94], ...
-              'Callback', @(src, event) runOptimization(x, designEvaluator));
-
-    %% Plot
+    %% 8. Plot
     % Create the figure box for placing figure
     figureBox = uipanel('Parent', hFig, 'Title', 'Solution Space', ...
                         'Units', 'normalized', ...
@@ -321,7 +336,7 @@ function GUI(x, qoi, lbl, plotdes, extraopt, designEvaluator)
     
     % axes('Parent', hFig, 'Position', [0.20, 0.55, 0.9, 0.6]);
     axis off;  % Turn off axis for the figure box
-    h = SolutionSpace_plot(x,lbl,plotdes,extraopt,designEvaluator);
+    h = SolutionSpace_plot(lbl,plotdes,extraopt,designEvaluator);
 
 end
 
@@ -353,8 +368,8 @@ function runOptimization(x, designEvaluator)
 end
 
 %% Function to update plot
-function updatePlot(x,lbl,plotdes,extraopt,designEvaluator,nVars)
-    global h textHandles;
+function updatePlot(lbl,plotdes,extraopt,designEvaluator,nVars)
+    global h textHandles x;
     % Get current slider values for bounds
     for i = 1:nVars
         lb = str2double(get(textHandles(i, 1), 'String'));
@@ -375,7 +390,7 @@ function updatePlot(x,lbl,plotdes,extraopt,designEvaluator,nVars)
     try
 
         % Clear and plot the solution space based on new bounds
-        h = SolutionSpace_plot(x,lbl,plotdes,extraopt,designEvaluator);
+        h = SolutionSpace_plot(lbl,plotdes,extraopt,designEvaluator);
 
         % Provide feedback after the process completes
         msgbox('Solution Space Plot Completed!', 'Success', 'help');
@@ -455,28 +470,52 @@ function textbox_callback(varIndex, boundType)
 
 end
 
+%% Function to update design space based on input
+function design_textbox_callback(src, varIndex, boundType)
+    global x sliderHandles
+
+    if boundType == 1
+        x(varIndex).dslb = str2double(src.String);
+    elseif boundType == 2
+        x(varIndex).dsub = str2double(src.String);
+    end
+
+    set(sliderHandles(varIndex), 'Limits', [x(varIndex).dslb x(varIndex).dsub]);
+    
+end
+
 %% Callback function to toggle text box enable state
-function toggle_textbox(chk, qoiIndex)
-    global textHandles_qoi
+function toggle_textbox(chk,i)
+    global qoi
     if chk.Value % If checkbox is checked
-        set(textHandles_qoi(qoiIndex, 1), 'String', num2str(-Inf));
-        set(textHandles_qoi(qoiIndex, 2), 'String', num2str(Inf));
+        qoi(i).status = 'inactive';
+    else ~chk.Value % If checkbox is notchecked
+        qoi(i).status = 'active';
     end
 end
 
 %% Function to update the QOI
-function update_qoi_callback(qoiIndex, boundType)
+function update_qoi_callback(nQOI)
     global qoi textHandles_qoi
-
-    % Get new QOI limits
-    newvalue = str2double(get(textHandles_qoi(qoiIndex, boundType), 'String'));
-
-    if boundType == 1
-        qoi(boundType).crll = newvalue;
-    elseif boundType == 2
-        qoi(boundType).crul = newvalue;
+    
+    for qoiIndex = 1:nQOI 
+        if strcmp(qoi(qoiIndex).status, 'active')
+            % Get new QOI limits
+            qoi(qoiIndex).crll = str2double(get(textHandles_qoi(qoiIndex, 1), 'String'));
+            qoi(qoiIndex).crul = str2double(get(textHandles_qoi(qoiIndex, 2), 'String'));
+        else
+            qoi(qoiIndex).crll = -inf;
+            qoi(qoiIndex).crul = inf;
+        end
     end
 
+end
+
+%% Function to save colour of QOI
+function updateColor(src,i)
+    global qoi
+
+    qoi(i).color = [src.Value, zeros(1, 6)];
 end
 
 %% Function to save the figure and data
@@ -659,8 +698,8 @@ function OptimdesignBox = box_optimization(x, designEvaluator)
 end
 
 %% Selective Design Space Projection
-function h = SolutionSpace_plot(x,lbl,plotdes,extraopt,designEvaluator)
-    global PlotData OptimdesignBox;
+function h = SolutionSpace_plot(lbl,plotdes,extraopt,designEvaluator)
+    global PlotData OptimdesignBox x;
 
     % Close the already existing figure
     allFigures = findall(0, 'Type', 'figure');
