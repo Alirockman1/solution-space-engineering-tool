@@ -345,6 +345,18 @@ function GUI(x, qoi, lbl, plotdes, extraopt, designEvaluator)
     axis off;  % Turn off axis for the figure box
     h = SolutionSpace_plot(lbl,plotdes,extraopt,designEvaluator);
 
+    % nRows = 1; % FIX: read from table, plot
+    % nCols = 3; % FIX: read from table, plot
+    % totalCells = nRows * nCols;
+    % solutionSpaceGrid =  uigridlayout(figureBox, [nRows,nCols]);
+    % % Make all rows and columns have equal (flexible) size
+    % solutionSpaceGrid.RowHeight = repmat({'1x'}, 1, nRows);
+    % solutionSpaceGrid.ColumnWidth = repmat({'1x'}, 1, nCols);
+    % nPlots = 3; % FIX: read from table, plot
+    % for k = 1:totalCells
+    %     currentAxis = uiaxes(solutionSpaceGrid);
+    % end
+
 end
 
 %% Function: Run Optimization
