@@ -5,68 +5,19 @@ close all;
 % Global Variables
 global textHandles sliderHandles h PlotData qoi x;
 
-currentFile = matlab.desktop.editor.getActiveFilename;  % Get the full path of the active file
-runfilelocation = fileparts(currentFile);
+currentFile = matlab.desktop.editor.getActiveFilename;                     % Get the full path of the active file
+runfilelocation = fileparts(currentFile);   
 
 % Dynamically get the parent folder
 [projectRoot, ~, ~] = fileparts(runfilelocation);
 
 %% Parse the excel file %%
-% x: struct containing details pertaining to the design variable
-% param: struct containing details pertaining to the design parameters (constants)
-% qoi: struct containing QoI and specified constraints
-% plotdes:  struct containing desired combination of Design variables
-% extraopt: Additional information for plotting solution space
 
-% Add all relevant folders and subfolders to the MATLAB path dynamically
-excelfilepath = fullfile(projectRoot, 'ProblemDefinition');
+parseValues = excel_file_parser(projectRoot,'ExcelFile','ProblemDefinition'); % Extract excel values
 
-% excel file to open using the parser
-excel_file = input('Please enter the name of the excel data file: ','s');
-excel_file = fullfile(excelfilepath, [excel_file, '.xlsx']);
+%% Problem selection %%
 
-[x,param,qoi,lbl,plotdes,extraopt] = excelParserXRayTool(excel_file);
-
-try
-    [x,param,qoi,lbl,plotdes,extraopt] = excelParserXRayTool(excel_file);
-catch
-    warning('Incorrect excel file specified. Please check the file location or name');
-end
-
-%% Function Call %%
-
-% Provide all available function calls
-% Define the folder path for available functions (dynamically set)
-folderPath = fullfile(projectRoot, 'Systems');
-
-% Get all .m files in the folder
-mFiles = dir(fullfile(folderPath, '*.m'));
-
-% Check if the folder contains any .m files
-if isempty(mFiles)
-    disp('No MATLAB (.m) files found in the specified folder.');
-else
-    % Print the names of all .m files with numbering
-    disp('The available list of functions are:');
-    for i = 1:length(mFiles)
-        % Remove the .m extension and display the numbered function name
-        [~, functionName, ~] = fileparts(mFiles(i).name);
-        fprintf('%d. %s\n', i, functionName);
-    end
-    
-    % Prompt the user to input the number of the function they want to select
-    selectedNumber = input('Please enter the number of the function you want to select: ');
-    
-    % Ensure the input is valid
-    if selectedNumber >= 1 && selectedNumber <= length(mFiles)
-        selectedFunction = mFiles(selectedNumber).name(1:end-2); % Get function name without extension
-        fprintf('You have selected function: %s\n', selectedFunction);
-    else
-        disp('Invalid selection. Please enter a valid number.');
-    end
-end
-
-selectedFunction = str2func(mFiles(selectedNumber).name(1:end-2)); % Create a function handle directly
+selectedFunction = select_function(projectRoot);
 
 %% Evaluate the design parameters
 designEvaluator = SolutionSpace(param, qoi, selectedFunction);
