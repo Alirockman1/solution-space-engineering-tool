@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 %% Setting up the environment
 clear all;
 close all;
@@ -1022,7 +1023,3 @@ function updateDesignVariableLines(index, x)
         end
     end
 end
-
-
-
-
