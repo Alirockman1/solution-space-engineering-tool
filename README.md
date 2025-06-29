@@ -34,21 +34,21 @@ This tool is ideal for design-space exploration, constraint sensitivity studies,
 ### 🎯 Full Interface Layout  
 *Tabbed interface with inputs, plots, and settings.*
 
-![Main GUI](Images/MainFigure.jpg)
+![Main GUI](Images/MainFigure.JPG)
 
 ---
 
 ### 🔧 Design Variable Panel  
 *Adjust variables with sliders/text boxes and immediately see how outputs respond.*
 
-![Variable Panel](Images/DVPanel.jpg)
+![Variable Panel](Images/DVPanel.JPG)
 
 ---
 
 ### 📊 QoI Visualization  
 *Decide which quantities of interest to display and modify their associated values directly within the solution space interface.*
 
-![QoI Visualization](Images/QOIPanel.png)
+![QoI Visualization](Images/QOIPanel.JPG)
 
 ---
 
@@ -77,27 +77,34 @@ This tool is ideal for design-space exploration, constraint sensitivity studies,
 - Supports zooming and panning for closer inspection of dense regions.
 - Helpful for identifying valid and invalid zones based on user-defined limits.
 
-[Insert image here: Images/SolutionSpace.JPG]
+![Solution Space Figure](Images/SolutionSpace.JPG)
 
 ---
 
 ## Project Structure
+```markdown
+
 SolutionSpaceToolbox/
-├── GUI/ # Self made MATLAB UI components
-│ ├── superSlider.m # Dual sided slider
-├── Images/ # Images included in the Readme.md
-├── InputReadingFunctions/ # Functions to parse and store data files
-│ ├── excel_parser_xray_tool.m # Parses problem data from excel files
-│ ├── createBottomUpMappingFiles.m # Parses problem data from excel files
-├── ProblemDefinition/ # Stores excel files containing engineering problems
-│ ├── XRayInput.xlsx # Example excel files
-├── SavedFiles/ # Stored good/bad points and session outputs
-├── sso-toolbox/ # Subfolder developed in collaboration with Eduardo Rodrigues Della Noce
-├── Systems/ # Custom objective function definition 
-├── TestScripts/ # Example script to run the *Solution Space Engineering Tool*
-├── UIFunctions/ # Stored callbacks used by the GUI
-├── setup_xray_toolbox.m # Script to add paths and initialize environment
-└── README.md # Project overview and documentation
+  GUI/                     # Self made MATLAB UI components
+    superSlider.m          # Dual sided slider
+  Images/                  # Images included in the Readme.md
+  InputReadingFunctions/   # Functions to parse and store data files
+    excel_parser_xray_tool.m    # Parses problem data from excel files
+    createBottomUpMappingFiles.m 
+  ProblemDefinition/       # Stores excel files containing engineering problems
+    XRayInput.xlsx         # Example excel files
+  SavedFiles/              # Stored good/bad points and session outputs
+  sso-toolbox/             # Subfolder developed in collaboration with Eduardo Rodrigues Della Noce
+  Systems/                 # Custom objective function definition 
+  TestScripts/             # Example script to run the *Solution Space Engineering Tool*
+  UIFunctions/             # Stored callbacks used by the GUI
+  setup_xray_toolbox.m     # Script to add paths and initialize environment
+  README.md                # Project overview and documentation
+
+---
+
+## Requirements
+- MATLAB 2019b or newer
 
 ---
 
@@ -105,3 +112,9 @@ SolutionSpaceToolbox/
 1. Name of excel file containing the problem definition -> "XRayInput_new" for test
 2. Function number -> "12" for test
 	Note: Function needs to be added in the *Systems/*
+
+---
+
+## Authors and Acknowledgment
+**Eduardo Rodrigues Della Noce (Supervisor, Main Author)**
+**Ali Abbas Kapadia (Contributor)**
