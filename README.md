@@ -34,28 +34,28 @@ This tool is ideal for design-space exploration, constraint sensitivity studies,
 ### 🎯 Full Interface Layout  
 *Tabbed interface with inputs, plots, and settings.*
 
-![Main GUI](images/MainFigure.jpg)
+![Main GUI](Images/MainFigure.jpg)
 
 ---
 
 ### 🔧 Design Variable Panel  
 *Adjust variables with sliders/text boxes and immediately see how outputs respond.*
 
-![Variable Panel](images/DVPanel.jpg)
+![Variable Panel](Images/DVPanel.jpg)
 
 ---
 
 ### 📊 QoI Visualization  
 *Decide which quantities of interest to display and modify their associated values directly within the solution space interface.*
 
-![QoI Visualization](images/QOIPanel.png)
+![QoI Visualization](Images/QOIPanel.png)
 
 ---
 
 ### 📍 Point-Wise Data Extraction
 *Interactively click on the plot to inspect and extract data at specific coordinates.*
 
-![Data Extraction](images/SelectionPanel.JPG)
+![Data Extraction](Images/SelectionPanel.JPG)
 
 	Note: First the button to select the point needs to be toggled on before clicking on the axeses
 
@@ -66,7 +66,7 @@ This tool is ideal for design-space exploration, constraint sensitivity studies,
 - Export complete plots or filtered data for post-processing or reporting.
 - Store generated figures as image files for documentation or presentations.
 
-![Data Save Panel](images/PostPanel.JPG)
+![Data Save Panel](Images/PostPanel.JPG)
 
 ---
 
@@ -77,7 +77,7 @@ This tool is ideal for design-space exploration, constraint sensitivity studies,
 - Supports zooming and panning for closer inspection of dense regions.
 - Helpful for identifying valid and invalid zones based on user-defined limits.
 
-[Insert image here: images/SolutionSpace.JPG]
+[Insert image here: Images/SolutionSpace.JPG]
 
 ---
 
