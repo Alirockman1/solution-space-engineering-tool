@@ -1,19 +1,23 @@
 %% Function to drag the boundaries
-function start_drag_function(~, ~, dataManager)
+function start_drag_function(lineHandle, ~, dataManager)
+    
     % Get the figure and current axes
-    fig = gcf;
-    if fig.Number ~= 1                                                     % Check if the current figure is not Figure 1
-        return;                                                            % Exit the function if it's not Figure 1
-    end
-
-    currentAxes = gca;                                                     % Current axes
+    currentAxes = ancestor(lineHandle, 'axes');
+    fig = ancestor(currentAxes, 'figure');
+    
+    % fig = gcf;
+    % if fig.Number ~= 1                                                     % Check if the current figure is not Figure 1
+    %     return;                                                            % Exit the function if it's not Figure 1
+    % end
+    % 
+    % currentAxes = gca;                                                     % Current axes
 
     % Set the WindowButtonMotionFcn to track movement
     set(fig, 'WindowButtonMotionFcn', @draggingFcn);
     set(fig, 'WindowButtonUpFcn', @stopDragFcn);
 
     % Store the current line handle
-    lineHandle = gco;                                                      % Get the current object (the line)
+    %lineHandle = gco;                                                      % Get the current object (the line)
     
     if ~strcmp(get(lineHandle, 'Type'), 'line')
         return;                                                            % Exit if it's not a line
@@ -38,11 +42,11 @@ function start_drag_function(~, ~, dataManager)
     end
 
     function stopDragFcn(~, ~)
-        % Get the current figure and axes
-        fig = gcf;
-        if fig.Number ~= 1
-            return;                                                        % Exit if it's not Figure 1
-        end
+        % % Get the current figure and axes
+        % fig = gcf;
+        % if fig.Number ~= 1
+        %     return;                                                        % Exit if it's not Figure 1
+        % end
 
         % Reset the motion and up functions
         set(fig, 'WindowButtonMotionFcn', '');
@@ -56,7 +60,7 @@ function start_drag_function(~, ~, dataManager)
             case 'lower'
                 newValue = get(lineHandle, 'YData');
                 dataManager.DesignVariables(index).sblb = newValue(1);     % Update lower bound for variable index
-                set(dataManager.TextHandles(index, 1), 'String',...
+                set(dataManager.TextHandles.DesignBox(index, 1), 'String',...
                     num2str(dataManager.DesignVariables(index).sblb, '%.2f')); % Update text box
                 set(dataManager.SliderHandles(index), 'Value',...
                     [dataManager.DesignVariables(index).sblb ...
@@ -65,7 +69,7 @@ function start_drag_function(~, ~, dataManager)
             case 'upper'
                 newValue = get(lineHandle, 'YData');
                 dataManager.DesignVariables(index).sbub = newValue(1);     % Update upper bound
-                set(dataManager.TextHandles(index, 2), 'String',...
+                set(dataManager.TextHandles.DesignBox(index, 2), 'String',...
                     num2str(dataManager.DesignVariables(index).sbub, '%.2f')); % Update text box
                 set(dataManager.SliderHandles(index), 'Value',...
                     [dataManager.DesignVariables(index).sblb ...
@@ -74,7 +78,7 @@ function start_drag_function(~, ~, dataManager)
             case 'left'
                 newValue = get(lineHandle, 'XData');
                 dataManager.DesignVariables(index).sblb = newValue(1);     % Update lower bound
-                set(dataManager.TextHandles(index, 1), 'String',...
+                set(dataManager.TextHandles.DesignBox(index, 1), 'String',...
                     num2str(dataManager.DesignVariables(index).sblb, '%.2f')); % Update text box
                 set(dataManager.SliderHandles(index), 'Value',...
                     [dataManager.DesignVariables(index).sblb ...
@@ -83,13 +87,13 @@ function start_drag_function(~, ~, dataManager)
             case 'right'
                 newValue = get(lineHandle, 'XData');
                 dataManager.DesignVariables(index).sbub = newValue(1);     % Update upper bound
-                set(dataManager.TextHandles(index, 2), 'String',...
+                set(dataManager.TextHandles.DesignBox(index, 2), 'String',...
                     num2str(dataManager.DesignVariables(index).sbub, '%.2f')); % Update text box
                 set(dataManager.SliderHandles(index), 'Value',...
                     [dataManager.DesignVariables(index).sblb ...
                     dataManager.DesignVariables(index).sbub]);             % Update Slider
         end
 
-        updateDesignVariableLines(index, dataManager)
+        update_design_variable_lines(index, dataManager)
     end
 end

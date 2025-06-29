@@ -1,6 +1,7 @@
 %setup_xray_toolbox
 %
-%   Copyright 2024 Eduardo Rodrigues Della Noce
+%   Copyright 2025 Eduardo Rodrigues Della Noce (Supervisor)
+%   Copyright 2025 Ali Abbas Kapadia (Author)
 %   SPDX-License-Identifier: Apache-2.0
 
 %   Licensed under the Apache License, Version 2.0 (the "License");
@@ -51,11 +52,9 @@ for i=1:size(addDirectory,1)
     currentPath = [toolboxFolderPath,addDirectory{i,1}];
 
     if(addDirectory{i,2})
-        % also add subfolders
-        totalCurrentPath = genpath(currentPath);
+        totalCurrentPath = genpath(currentPath);                           % also add subfolders
     else
-        % add only main folder
-        totalCurrentPath = currentPath;
+        totalCurrentPath = currentPath;                                    % add only main folder
     end
 
     if(exist(currentPath, 'dir'))

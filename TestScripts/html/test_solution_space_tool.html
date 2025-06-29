@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>test_solution_space_tool</title>
+<meta name="generator" content="MATLAB 24.2">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2025-06-13">
+<meta name="DC.source" content="test_solution_space_tool.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Setting up the environment</a>
+</li>
+<li>
+<a href="#2">Parse the excel file %% parseValues = excel_file_parser(projectRoot,'ExcelFile','ProblemDefinition'); % Extract excel values</a>
+</li>
+<li>
+<a href="#3">Problem selection %% selectedFunction = select_function(projectRoot);</a>
+</li>
+<li>
+<a href="#4">Create data manager</a>
+</li>
+<li>
+<a href="#5">Create GUI</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Setting up the environment</h2>
+<pre class="codeinput">clear <span class="string">all</span>;
+close <span class="string">all</span>;
+warning(<span class="string">'off'</span>, <span class="string">'all'</span>);  <span class="comment">% Turn back off after debugging</span>
+
+currentFile = matlab.desktop.editor.getActiveFilename;                     <span class="comment">% Get the full path of the active file</span>
+runfilelocation = fileparts(currentFile);
+
+<span class="comment">% Dynamically get the parent folder</span>
+[projectRoot, ~, ~] = fileparts(runfilelocation);
+</pre>
+<h2 id="2">Parse the excel file %% parseValues = excel_file_parser(projectRoot,'ExcelFile','ProblemDefinition'); % Extract excel values</h2>
+<pre class="codeoutput">Warning: Column headers from the file were modified to make them valid MATLAB
+identifiers before creating variable names for the table. The original column
+headers are saved in the VariableDescriptions property.
+Set 'VariableNamingRule' to 'preserve' to use the original column headers as
+table variable names. 
+</pre>
+<h2 id="3">Problem selection %% selectedFunction = select_function(projectRoot);</h2>
+<pre class="codeoutput">The available list of functions are:
+1. S0001_f_5d_Crash_Problem
+2. S0002_f_BeamDisplacement_Problem
+3. S0003_f_TestCrashProblem
+4. S0004_f_TestCrash1
+5. S0005_f_CrashDesignProblem
+6. S0006_f_DemonstrationCrashProblem
+7. S0008_f_cfk1d
+8. S0009_f_cfk3d
+9. S0010_f_cfkIter1
+10. S0011_f_cfkIter2
+11. S0012_f_cfkIter3
+12. tutorial_01_euclidean_distance_3d
+</pre>
+<pre class="codeoutput error">Error using input
+Cannot call INPUT from EVALC.
+
+Error in select_function (line 48)
+        selectedNumber = input('Please enter the number of the function you want to select: ');
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in test_solution_space_tool (line 16)
+selectedFunction = select_function(projectRoot);
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^</pre>
+<h2 id="4">Create data manager</h2>
+<pre class="codeinput">dataManager = SolutionSpaceData(parseValues.DesignVariable,<span class="keyword">...</span>
+    parseValues.QuantatiesOfInterest,parseValues.DesignParameters,<span class="keyword">...</span>
+    parseValues.Labels, parseValues.PlotDesigns,<span class="keyword">...</span>
+    parseValues.ExtraOptions, selectedFunction);
+
+dataManager.selectedFunction = selectedFunction;
+</pre>
+<h2 id="5">Create GUI</h2>
+<pre class="codeinput">create_solution_space_GUI(dataManager);
+</pre>
+<p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024b</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Setting up the environment
+clear all;
+close all;
+warning('off', 'all');  % Turn back off after debugging
+
+currentFile = matlab.desktop.editor.getActiveFilename;                     % Get the full path of the active file
+runfilelocation = fileparts(currentFile);   
+
+% Dynamically get the parent folder
+[projectRoot, ~, ~] = fileparts(runfilelocation);
+
+%% Parse the excel file %%
+parseValues = excel_file_parser(projectRoot,'ExcelFile','ProblemDefinition'); % Extract excel values
+
+%% Problem selection %%
+selectedFunction = select_function(projectRoot);
+
+%% Create data manager
+dataManager = SolutionSpaceData(parseValues.DesignVariable,...
+    parseValues.QuantatiesOfInterest,parseValues.DesignParameters,...
+    parseValues.Labels, parseValues.PlotDesigns,...
+    parseValues.ExtraOptions, selectedFunction);
+
+dataManager.selectedFunction = selectedFunction;
+
+%% Create GUI
+create_solution_space_GUI(dataManager);
+
+
+
+
+
+
+
+
+
+
+
+
+##### SOURCE END #####
+-->
+</body>
+</html>

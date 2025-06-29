@@ -1,15 +1,69 @@
-%% Function: Excel Parser - X-Ray Tool
+function [x,param,qoi,lbl,plotdes,extraopt] = excel_parser_xray_tool(filename)
+% EXCEL_PARSER_XRAY_TOOL Parses structured design data from a standardized Excel file.
 %
-% Input:
-%   - filename : filename of the Excel file (can include path structure)
+%   [x, param, qoi, lbl, plotdes, extraopt] = EXCEL_PARSER_XRAY_TOOL(filename)
+%   reads multiple sheets from the specified Excel file and converts the
+%   content into structured data types used for design exploration and 
+%   visualization in engineering and optimization contexts.
 %
-% Output:
-%   - x : structure of design variables
-%   - param : structure of constant parameters
-%   - qoi : structure of quantities of interest
-%   - lbl : structure of labels
+%   INPUT:
+%       filename - Full path to the Excel file containing all required sheets.
+%
+%   OUTPUT:
+%       x         - Struct array of design variables, each with:
+%                    - varname, dispname, description, unit
+%                    - design space bounds (dslb, dsub)
+%                    - initial design (dinit)
+%                    - solution box bounds (sblb, sbub)
+%
+%       param     - Struct array of constant parameters with:
+%                    - varname, dispname, description, unit, value
+%
+%       qoi       - Struct array of Quantities of Interest, each with:
+%                    - varname, dispname, description, unit, status
+%                    - critical lower and upper limits (crll, crul)
+%                    - text for when violated (viol)
+%                    - color (color), parsed as RGB or named string
+%
+%       lbl       - Struct array of label metadata used for sample annotation,
+%                   including:
+%                    - varname, dispname, description, unit, value, color
+%
+%       plotdes   - Struct array defining which pairs of variables to use
+%                   for plotting (X-Y combinations), stored as index references.
+%
+%       extraopt  - Struct of plotting or sampling configuration read from the
+%                   "Other Options" sheet, including:
+%                    - SampleSize, SampleMarkerSize, SampleMarkerType
+%                    - SolSpLineWidth, SolSpLineType
+%
+%   Each sheet must follow a predefined structure, and the parser includes
+%   robust error checking for:
+%       - Missing or invalid variable names
+%       - Malformed numeric inputs
+%       - Out-of-bound design space definitions
+%       - Unrecognized color formats in QoI definitions
+%
+%   Recognized color formats include MATLAB named colors and hex codes
+%   (e.g., '#FF0000' or 'red').
+%
+%   REQUIREMENTS:
+%       The following Excel sheets are expected:
+%           - 'Design Variables'
+%           - 'Constant Parameters'
+%           - 'Quantities of Interest'
+%           - 'Labels'
+%           - 'Desired Plots'
+%           - 'Other Options'
+%
+%   See also: DETECTIMPORTOPTIONS, READTABLE, STRUCT, CONTAINERS.MAP
+%
+%   Developed for the X-Ray Design Space Exploration Framework.
+%
+%   Copyright 2025 Eduardo Rodrigues Della Noce (Supervisor, Main Author)
+%   Copyright 2025 Ali Abbas Kapadia (Contributor)
+%   SPDX-License-Identifier: Apache-2.0
 
-function [x,param,qoi,lbl,plotdes,extraopt] = excelParserXRayTool(filename)
     %% Read Excel Spreadsheets Information
     warning('OFF','MATLAB:table:ModifiedAndSavedVarnames'); % yes, I know, sheet names will be changed when converted to variables...
     % Design Variables

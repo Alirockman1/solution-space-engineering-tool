@@ -25,6 +25,10 @@ function selectedFunction = select_function(projectRoot)
 %   Note:
 %       The selected file must define a valid MATLAB function (not a script).
 %       This function assumes the 'Systems' folder exists under projectRoot.
+%
+%   Copyright 2025 Eduardo Rodrigues Della Noce (Supervisor)
+%   Copyright 2025 Ali Abbas Kapadia (Main Author)
+%   SPDX-License-Identifier: Apache-2.0
 
     % Define the folder path for available functions (dynamically set)
     folderPath = fullfile(projectRoot, 'Systems');
