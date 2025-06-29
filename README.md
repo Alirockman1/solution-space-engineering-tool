@@ -117,5 +117,5 @@ SolutionSpaceToolbox/
 ---
 
 ## Authors and Acknowledgment
-**Eduardo Rodrigues Della Noce (Supervisor, Main Author)**
-**Ali Abbas Kapadia (Contributor)**
+- **Eduardo Rodrigues Della Noce (Supervisor, Main Author)**
+- **Ali Abbas Kapadia (Contributor)**
