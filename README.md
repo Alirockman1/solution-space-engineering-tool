@@ -82,7 +82,7 @@ This tool is ideal for design-space exploration, constraint sensitivity studies,
 ---
 
 ## Project Structure
-```markdown
+```plaintext
 
 SolutionSpaceToolbox/
   GUI/                     # Self made MATLAB UI components
@@ -100,8 +100,6 @@ SolutionSpaceToolbox/
   UIFunctions/             # Stored callbacks used by the GUI
   setup_xray_toolbox.m     # Script to add paths and initialize environment
   README.md                # Project overview and documentation
-
-```markdown
 
 ---
 
