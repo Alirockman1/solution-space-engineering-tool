@@ -1,25 +1,107 @@
-## Welcome to instructions to run the new X-Ray tool ##
+# Solution Space Engineering Tool
 
-1. The new code is located in the folder ''\xray-matlab\v11\GUI_x_ray.m
+## Overview
+The **Solution Space Engineering Tool** is an interactive MATLAB-based tool that enables users to visually explore and interact with complex solution spaces. It leverages MATLAB's App Designer and UI components to provide a rich graphical interface for navigating design variables, constraints, and system outputs in real time.
 
-2. Ensure all folders (including subfolders) are added to the directory before beginning the execution.
-	Desired folder: ''\xray-matlab\v11\XRay\ProblemDefinition 
-			''\xray-matlab\v11\XRay\InputOutput
-			''\xray-matlab\v11\XRay\Data
+This tool is ideal for design-space exploration, constraint sensitivity studies, and visual decision-making in multi-variable optimization problems.
 
-3. Upon running the code for the first time, add the script to path.
+---
 
-4. Next you will be prompted to enter the name of the excel file without its extension.
-	Note: The excel file should be similar to the test file (XRayInput_new.xlsx)
+## Features
 
-5. Following which you will have to state the problem you want to solve (number corresponding to the problems in the list)
+- 🧭 **Graphical Navigation of Design Space**  
+  Visually explore feasible and infeasible regions in high-dimensional spaces.
 
-6. Initially the GUI along with the graph will be displayed.
+- 🎛️ **Interactive MATLAB GUI**  
+  Built using `uifigure`, `uitabgroup`, `uipanel`, `uisliders`, dropdowns, checkboxes, and color pickers.
 
-7. Functions included in GUI:
-	A) Changing the box shaped solution space using the sliders.
-	B) Changing the box shaped solution space by directly inputing the lower and upper bound.
-	C) Changing the box shaped solution space by manually dragging the boundaries.
-	D) Displaying a design point from within the solution spaces.
-	E) Saving the solution space images and list of good/bas designs.
-	F) Allowing box shape solution space optimization
+- 📈 **Dynamic Visualization of Quantities of Interest (QoIs)**  
+  Real-time plots of system outputs, design feasibility, and trade-off curves.
+
+- 🛠️ **Live Input Control**  
+  Draggable box shape design space, sliders and input boxes for modifying design variables, with immediate feedback.
+
+- 🌈 **Customizable Appearance**  
+  Change colors, markers, and plot styles through a built-in UI.
+
+- 🔄 **Modular Design**  
+  Easily extendable to support different system functions (MATLAB or Python).
+
+---
+
+## Screenshots
+
+### 🎯 Full Interface Layout  
+*Tabbed interface with inputs, plots, and settings.*
+
+![Main GUI](images/MainFigure.jpg)
+
+---
+
+### 🔧 Design Variable Panel  
+*Adjust variables with sliders/text boxes and immediately see how outputs respond.*
+
+![Variable Panel](images/DVPanel.jpg)
+
+---
+
+### 📊 QoI Visualization  
+*Decide which quantities of interest to display and modify their associated values directly within the solution space interface.*
+
+![QoI Visualization](images/QOIPanel.png)
+
+---
+
+### 📍 Point-Wise Data Extraction
+*Interactively click on the plot to inspect and extract data at specific coordinates.*
+
+![Data Extraction](images/SelectionPanel.JPG)
+
+	Note: First the button to select the point needs to be toggled on before clicking on the axeses
+
+---
+
+### 💾 Save & Export Data
+*Save selected points (e.g., good/bad design candidates) along with associated solution space figures.*
+- Export complete plots or filtered data for post-processing or reporting.
+- Store generated figures as image files for documentation or presentations.
+
+![Data Save Panel](images/PostPanel.JPG)
+
+---
+
+### 📊 Solution Space Figure
+*Interactive figure for exploring the solution space in detail.*
+- Includes a scrollable panel for navigating multiple variable pairs or dimensions.
+- Features a draggable design box to define and adjust regions of interest.
+- Supports zooming and panning for closer inspection of dense regions.
+- Helpful for identifying valid and invalid zones based on user-defined limits.
+
+[Insert image here: images/SolutionSpace.JPG]
+
+---
+
+## Project Structure
+SolutionSpaceToolbox/
+├── GUI/ # Self made MATLAB UI components
+│ ├── superSlider.m # Dual sided slider
+├── Images/ # Images included in the Readme.md
+├── InputReadingFunctions/ # Functions to parse and store data files
+│ ├── excel_parser_xray_tool.m # Parses problem data from excel files
+│ ├── createBottomUpMappingFiles.m # Parses problem data from excel files
+├── ProblemDefinition/ # Stores excel files containing engineering problems
+│ ├── XRayInput.xlsx # Example excel files
+├── SavedFiles/ # Stored good/bad points and session outputs
+├── sso-toolbox/ # Subfolder developed in collaboration with Eduardo Rodrigues Della Noce
+├── Systems/ # Custom objective function definition 
+├── TestScripts/ # Example script to run the *Solution Space Engineering Tool*
+├── UIFunctions/ # Stored callbacks used by the GUI
+├── setup_xray_toolbox.m # Script to add paths and initialize environment
+└── README.md # Project overview and documentation
+
+---
+
+## Inputs
+1. Name of excel file containing the problem definition -> "XRayInput_new" for test
+2. Function number -> "12" for test
+	Note: Function needs to be added in the *Systems/*
