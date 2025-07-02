@@ -47,34 +47,7 @@ function run_optimization(dataManager)
     dataManager.DesignEvaluator = DesignEvaluatorBottomUpMapping(bottomUpMapping,...
         dataManager.QOIs.crll,dataManager.QOIs.crul);
 
-    %% Reset handles
-    dataManager.restoreOriginalDesignVariables();
-
-    for varIndex = 1:numel(dataManager.OriginalDesignVariables)
-        dataManager.DesignVariables(varIndex).sblb = dataManager.OriginalDesignVariables(varIndex).sblb;
-        dataManager.DesignVariables(varIndex).sbub = dataManager.OriginalDesignVariables(varIndex).sbub;
-        dataManager.DesignVariables(varIndex).dslb = dataManager.OriginalDesignVariables(varIndex).dslb;
-        dataManager.DesignVariables(varIndex).dsub = dataManager.OriginalDesignVariables(varIndex).dsub;
-
-        % Reset slider value
-        set(dataManager.SliderHandles(varIndex), 'Value',...
-            [dataManager.DesignVariables(varIndex).sblb...
-            dataManager.DesignVariables(varIndex).sbub]);
-
-        % Reset box shaped solution space
-        set(dataManager.TextHandles.DesignBox(varIndex,1), 'String',...
-            sprintf('%.2f', dataManager.DesignVariables(varIndex).sblb));
-        set(dataManager.TextHandles.DesignBox(varIndex,2), 'String',...
-            sprintf('%.2f', dataManager.DesignVariables(varIndex).sbub));   
-        update_design_variable_lines(varIndex, dataManager)
-        
-        % Reset solution space limits
-        set(dataManager.TextHandles.DesignLimits(varIndex,1), 'String',...
-            sprintf('%.2f', dataManager.DesignVariables(varIndex).dslb));
-        set(dataManager.TextHandles.DesignLimits(varIndex,2), 'String',...
-            sprintf('%.2f', dataManager.DesignVariables(varIndex).dsub));      
-    end
-
+    %% Achieve optimum box
     try
         % Run the optimization process
         box_optimization(dataManager);
@@ -85,6 +58,56 @@ function run_optimization(dataManager)
         % Display an error message if the process fails
         errordlg(['An error occurred: ', ME.message], 'Error', 'modal');
     end
+
+    %% Update box shape handles
+    for varIdx = 1:length(dataManager.OptimumDesignBox)
+
+        % Update Design Variable Bounds
+        % update upper design variables
+        dataManager.updateDesignBounds(varIdx, 1, dataManager.OptimumDesignBox(1,varIdx));
+        % update lower design  variables
+        dataManager.updateDesignBounds(varIdx, 2, dataManager.OptimumDesignBox(2,varIdx));
+
+        % Update Slider Value
+        set(dataManager.SliderHandles(varIdx), 'Value',...
+        [dataManager.DesignVariables(varIdx).sblb...
+        dataManager.DesignVariables(varIdx).sbub]);
+
+        % Update box shaped solution space
+        set(dataManager.TextHandles.DesignBox(varIdx,1), 'String',...
+            sprintf('%.2f', dataManager.DesignVariables(varIdx).sblb));
+        set(dataManager.TextHandles.DesignBox(varIdx,2), 'String',...
+            sprintf('%.2f', dataManager.DesignVariables(varIdx).sbub));   
+        update_design_variable_lines(varIdx, dataManager);
+
+    end
+    
+    % dataManager.restoreOriginalDesignVariables();
+    % 
+    % for varIndex = 1:numel(dataManager.OriginalDesignVariables)
+    %     dataManager.DesignVariables(varIndex).sblb = dataManager.OriginalDesignVariables(varIndex).sblb;
+    %     dataManager.DesignVariables(varIndex).sbub = dataManager.OriginalDesignVariables(varIndex).sbub;
+    %     dataManager.DesignVariables(varIndex).dslb = dataManager.OriginalDesignVariables(varIndex).dslb;
+    %     dataManager.DesignVariables(varIndex).dsub = dataManager.OriginalDesignVariables(varIndex).dsub;
+    % 
+    %     % Reset slider value
+    %     set(dataManager.SliderHandles(varIndex), 'Value',...
+    %         [dataManager.DesignVariables(varIndex).sblb...
+    %         dataManager.DesignVariables(varIndex).sbub]);
+    % 
+    %     % Reset box shaped solution space
+    %     set(dataManager.TextHandles.DesignBox(varIndex,1), 'String',...
+    %         sprintf('%.2f', dataManager.DesignVariables(varIndex).sblb));
+    %     set(dataManager.TextHandles.DesignBox(varIndex,2), 'String',...
+    %         sprintf('%.2f', dataManager.DesignVariables(varIndex).sbub));   
+    %     update_design_variable_lines(varIndex, dataManager)
+    % 
+    %     % Reset solution space limits
+    %     set(dataManager.TextHandles.DesignLimits(varIndex,1), 'String',...
+    %         sprintf('%.2f', dataManager.DesignVariables(varIndex).dslb));
+    %     set(dataManager.TextHandles.DesignLimits(varIndex,2), 'String',...
+    %         sprintf('%.2f', dataManager.DesignVariables(varIndex).dsub));      
+    % end
 
     % Restore the button's original appearance
     button.BackgroundColor = originalColor;

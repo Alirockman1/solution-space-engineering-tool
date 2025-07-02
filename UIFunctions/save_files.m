@@ -65,7 +65,7 @@ function save_files(~, ~, dataManager, hFig)
     end
 
     %% Save Figure
-    timeStamp = datetime('now', 'Format', 'ddMM_HH');
+    timeStamp = datestr(datetime('now'), 'HHMM_ddmm');
     saveFolder = fullfile(dataManager.PostTextHandles(3).String,...
         ['DesignSpacePlots_' timeStamp]);
 
@@ -113,29 +113,42 @@ function save_files(~, ~, dataManager, hFig)
         fileName = [dataManager.PostTextHandles(1).String, '.xlsx'];
     end
     outputFilePath = fullfile(saveFolder, fileName);
+
+    variableName = cell(1, numel(dataManager.Labels));
+    
+    for i = 1:numel(dataManager.Labels)
+        variableName{i} = dataManager.Labels(i).varname;
+    end
     
     try
-        % Gather good and bad performance data points
-        goodX = dataManager.AxisHandles.GoodPerformance.XData;
-        goodY = dataManager.AxisHandles.GoodPerformance.YData;
-        goodClass = repmat("Good", size(goodY));  % Classification for good data
-
-        badX  = dataManager.AxisHandles.BadPerformance.XData;
-        badY  = dataManager.AxisHandles.BadPerformance.YData;
-        badClass = repmat("Bad", size(badY));    % Classification for bad data
-
-        % Combine the data points and classifications into a table
-        combinedY = vertcat(goodY', badY');  % Concatenate Y values
-        combinedX = vertcat(goodX', badX');  % Concatenate X values
-        combinedClass = vertcat(goodClass', badClass');  % Concatenate classifications
-
-        % Create the final table
-        finalTable = table(combinedY, combinedX, combinedClass, ...
-                           'VariableNames', {'YValues', 'XValues', 'Classification'});
+        % Convert to table
+        if isnumeric(dataManager.EvaluationData.DesignSample)
+            sampleTable = array2table([dataManager.EvaluationData.DesignSample,...
+                dataManager.EvaluationData.PerformanceDeficit]);
+        else
+            sampleTable = dataManager.EvaluationData.DesignSample;
+        end
+    
+        % Assign proper column names
+        sampleTable.Properties.VariableNames(1:numel(variableName)) = variableName;
+        sampleTable.Properties.VariableNames{numel(variableName) + 1} = 'Performance Deficit';
+    
+        % Logic: any value ≤ 0 in the row → 'Good', else 'Bad'
+        labels = repmat("Bad", size(sampleTable,1), 1);
+        mask = any(table2array(sampleTable(:, variableName)) <= 0, 2);
+        labels(mask) = "Good";
+    
+        % Add status column
+        sampleTable.Classification = labels;
 
         % Write the table to Excel
-        writetable(finalTable, outputFilePath, 'Sheet', 'Results', 'WriteRowNames', true);
+        writetable(sampleTable, outputFilePath, 'Sheet', 'Results', 'WriteRowNames', true);
 
+        % Save the struct EvaluationData to the .mat file
+        matFilePath = fullfile(saveFolder, 'EvaluationData.mat');
+        EvaluationData = dataManager.EvaluationData;
+        save(matFilePath, 'EvaluationData', '-v7.3');                      % save to correct file path
+S
         % Show confirmation alert
         uialert(hFig, ...
             sprintf('Data written to Excel:\n%s', fileName), ...

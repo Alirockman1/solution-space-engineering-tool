@@ -53,5 +53,5 @@ function slider_callback(dataManager, varIndex)
     end
   
     % Update Plot boundaries
-    updateDesignVariableLines(varIndex, dataManager)
+    update_design_variable_lines(varIndex, dataManager)
 end
