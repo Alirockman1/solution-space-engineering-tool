@@ -49,10 +49,10 @@ function select_data_from_plot(src, event, dataManager)
     yLabel = ax.YLabel.String; % Get the y-axis label
 
     % Retrieve variable numbers based on labels
-    xVarNo = str2num(get_variable_from_label(dataManager, xLabel));
-    yVarNo = str2num(get_variable_from_label(dataManager, yLabel));
+    nXVariable = str2num(get_variable_from_label(dataManager, xLabel));
+    nYVariable = str2num(get_variable_from_label(dataManager, yLabel));
 
-    if isempty(xVarNo) || isempty(yVarNo)
+    if isempty(nXVariable) || isempty(nYVariable)
         disp('Error: One or both variable numbers could not be found.');
         dataManager.SelectionModeActive = false;
         return;
@@ -60,14 +60,14 @@ function select_data_from_plot(src, event, dataManager)
 
     % Extract the design samples for the current plot
     designSamples = dataManager.EvaluationData.DesignSample;
-    QOI = dataManager.EvaluationData.EvaluatorOutput.PerformanceMeasure;
+    QuantatiesOfInterest = dataManager.EvaluationData.EvaluatorOutput.PerformanceMeasure;
     feasibility = dataManager.EvaluationData.EvaluatorOutput.PhysicalFeasibilityMeasure;
 
     % Get the selected design variable values
     selectedVars = [xClick, yClick];
     
     % Get the column indices of selected variables
-    selectedCols = [xVarNo, yVarNo];
+    selectedCols = [nXVariable, nYVariable];
 
     % Calculate Euclidean distances in that 2D projection
     distances = sqrt(sum((designSamples(:, selectedCols) - selectedVars).^2, 2));
@@ -75,15 +75,15 @@ function select_data_from_plot(src, event, dataManager)
     % Find the index of the closest point
     [~, closestIndex] = min(distances);
     closestPoint = designSamples(closestIndex, :);
-    closestqoi   = QOI(closestIndex);
+    closestQuantatiesOfInterests   = QuantatiesOfInterest(closestIndex,:);
 
     % Update the text areas with the selected values
     for i = 1:length({dataManager.Labels.dispname})
-        dataManager.DataTextHandles(i).String = num2str(closestPoint(i), '%.4f');
+        set(dataManager.DataTextHandles(i), 'String', num2str(closestPoint(i), '%.4f'));
     end
 
-    for j = 1:length(closestqoi)
-        dataManager.DataTextHandles(i+j).String = num2str(closestqoi, '%.4f');
+    for j = 1:length(closestQuantatiesOfInterests)
+        set(dataManager.DataTextHandles(i+j), 'String', num2str(closestQuantatiesOfInterests(j), '%.4f'));
     end
 
     dataManager.SelectionModeActive = false;

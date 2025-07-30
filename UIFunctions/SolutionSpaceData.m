@@ -11,7 +11,7 @@ classdef SolutionSpaceData < handle
     properties
         %% Core data
         DesignVariables             % Struct array of design variables (e.g., dinit, dslb, dsub)
-        QOIs                        % Struct array of quantities of interest (e.g., crll, crul, status)
+        QuantatiesOfInterests       % Struct array of quantities of interest (e.g., crll, crul, status)
         DesignParameters            % Parameters passed to the selected function (e.g., problem constants)
         Labels                      % Cell array of axis labels or variable names
         DesiredPlots                % List of variable pairs or plot configurations
@@ -49,7 +49,7 @@ classdef SolutionSpaceData < handle
                 return; % Allow creation of empty object
             end
             obj.DesignVariables = x;
-            obj.QOIs = qoi;
+            obj.QuantatiesOfInterests = qoi;
             obj.DesignParameters = param;
             obj.Labels = lbl;
             obj.DesiredPlots = plotdes;
@@ -74,8 +74,8 @@ classdef SolutionSpaceData < handle
             bottomUpMapping = BottomUpMappingFunction(obj.selectedFunction, [obj.DesignParameters.value]);
             evaluator = DesignEvaluatorBottomUpMapping( ...
                 bottomUpMapping, ...
-                obj.QOIs.crll, ...
-                obj.QOIs.crul);
+                [obj.QuantatiesOfInterests.crll], ...
+                [obj.QuantatiesOfInterests.crul]);
         end
 
         function updateDesignBounds(obj, varIndex, boundType, newValue)
@@ -102,18 +102,18 @@ classdef SolutionSpaceData < handle
             % Update bounds of a quantity of interest
             % boundType: 1 = lower, 2 = upper
             if boundType == 1
-                obj.QOIs(qoiIndex).crll = newValue;
+                obj.QuantatiesOfInterests(qoiIndex).crll = newValue;
             else
-                obj.QOIs(qoiIndex).crul = newValue;
+                obj.QuantatiesOfInterests(qoiIndex).crul = newValue;
             end
         end
 
         function toggleQOIStatus(obj, qoiIndex)
             % Toggle QOI status between 'active' and 'inactive'
-            if strcmp(obj.QOIs(qoiIndex).status, 'active')
-                obj.QOIs(qoiIndex).status = 'inactive';
+            if strcmp(obj.QuantatiesOfInterests(qoiIndex).status, 'active')
+                obj.QuantatiesOfInterests(qoiIndex).status = 'inactive';
             else
-                obj.QOIs(qoiIndex).status = 'active';
+                obj.QuantatiesOfInterests(qoiIndex).status = 'active';
             end
         end
 

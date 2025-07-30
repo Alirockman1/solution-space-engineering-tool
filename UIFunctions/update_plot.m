@@ -1,4 +1,4 @@
-function update_plot(dataManager,nVariables)
+function update_plot(dataManager)
 % UPDATE_PLOT Updates design variable bounds and redraws the solution space plot.
 %S
 %   UPDATE_PLOT reads current design variable bounds from UI text boxes, updates
@@ -31,18 +31,9 @@ function update_plot(dataManager,nVariables)
 %   Copyright 2025 Ali Abbas Kapadia (Main Author)
 %   SPDX-License-Identifier: Apache-2.0
     
-    for i = 1:nVariables
+    for i = 1:numel(dataManager.AxisHandles.IndividualPlots)
         % Clear plot data
         cla(dataManager.AxisHandles.IndividualPlots(i));    % Clear it safely
-
-        % Get current values for design-space bounds from textbox
-        lb = str2double(get(dataManager.TextHandles.DesignBox(i, 1), 'String'));
-        ub = str2double(get(dataManager.TextHandles.DesignBox(i, 2), 'String'));
-        
-        % Update data in dataManager
-        dataManager.updateDesignVarBounds(i, 1, round(lb,2));              % Lower bound
-        dataManager.updateDesignVarBounds(i, 2, round(ub,2));              % Upper bound
-
     end
 
     % Change the button's appearance to indicate the process is running

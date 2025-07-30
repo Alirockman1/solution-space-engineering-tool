@@ -1,4 +1,4 @@
-function variable_number = get_variable_from_label(dataManager, label)
+function variableNumber = get_variable_from_label(dataManager, label)
 %GET_VARIABLE_FROM_LABEL Retrieve the variable number associated with a label.
 %
 %   variable_number = GET_VARIABLE_FROM_LABEL(dataManager, label)
@@ -20,12 +20,13 @@ function variable_number = get_variable_from_label(dataManager, label)
 %   Copyright 2025 Ali Abbas Kapadia (Main Author)
 %   SPDX-License-Identifier: Apache-2.0
 
-    variable_number = [];
+    variableNumber = [];
 
     % Loop through dispname to find a match
     for i = 1:length({dataManager.Labels.dispname})
-        if strcmp(dataManager.Labels(i).dispname, label)
-            variable_number = dataManager.Labels(i).varno
+        if strcmp([dataManager.DesignVariables(i).dispname...
+            ' (' dataManager.DesignVariables(i).unit ')'], label)
+            variableNumber = dataManager.Labels(i).varno;
             return;                                                        % Exit once the first match is found
         end
     end

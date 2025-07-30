@@ -22,6 +22,6 @@ function update_color(src,dataManager,variableIteration)
 %   Copyright 2025 Ali Abbas Kapadia (Main Author)
 %   SPDX-License-Identifier: Apache-2.0
 
-    dataManager.QOIs(variableIteration).color = [src.Value, zeros(1, 6)];
+    dataManager.QuantatiesOfInterests(variableIteration).color = [src.Value];
     
 end

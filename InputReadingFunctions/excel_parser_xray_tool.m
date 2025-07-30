@@ -151,7 +151,7 @@ function [x,param,qoi,lbl,plotdes,extraopt] = excel_parser_xray_tool(filename)
         qoi(i).crll = readNumericEntries(Tqoi.CriticalLowerValue{i});
         qoi(i).crul = readNumericEntries(Tqoi.CriticalUpperValue{i});
         qoi(i).viol = Tqoi.TextWhenViolated{i};
-        qoi(i).color = convertRGB(Tqoi.ColorOfPointsWhereViolated{i}); % think of best solution...
+        qoi(i).color = colorNameToRGB(Tqoi.ColorOfPointsWhereViolated{i}); % think of best solution...
     end
     
     %% Parse: Labels
@@ -165,18 +165,43 @@ function [x,param,qoi,lbl,plotdes,extraopt] = excel_parser_xray_tool(filename)
         lbl(i).val = Tlbl.ValueOfDesignVariables{i};
         lbl(i).color = Tlbl.Color{i};
     end
+
+    %% Reorder the design variables
+    
+    % Step 1: Collect all x.varname values
+    x_varnames = {x.varname};
+    
+    % Step 2: Reorder using lbl(i).varname and lbl(i).varno
+    x_reordered = repmat(x(1), size(x));  % Preallocate
+    
+    for i = 1:length(lbl)
+        idx = str2double(lbl(i).varno);          % Target index
+        targetVar = lbl(i).varname;            % Name to find in x
+        x_idx = find(strcmp(x_varnames, targetVar));  % Find in x
+        if isempty(x_idx)
+            error("Variable name '%s' from lbl(%d) not found in x.", targetVar, idx);
+        end
+        x_reordered(idx) = x(x_idx);  % Place x entry at correct idx
+    end
+    
+    % Step 3: Overwrite original x
+    x = x_reordered;
     
     %% Parse: Desired Plots
     plotdes = struct([]);
-    % Get unique variable names
-    uniqueVariables = unique([Tplot.DesignVariableX_axis; Tplot.DesignVariableY_axis]);
-    
-    % Create a mapping from variable names to numerical identifiers
-    varMapping = containers.Map(uniqueVariables, 1:length(uniqueVariables));
+
+    % Flatten lbl.varno to a plain cell array of strings
+    if iscell(lbl(1).varno)
+        varnoList = cellfun(@(c) c{1}, {lbl.varname}, 'UniformOutput', false);  % If each lbl.varno is like {'X1'}
+    else
+        varnoList = {lbl.varname};  % If each lbl.varno is like 'X1'
+    end
 
     for i=1:size(Tplot,1)
-        plotdes(i).axdes = {varMapping(Tplot.DesignVariableX_axis{i}), ...
-                        varMapping(Tplot.DesignVariableY_axis{i})};
+        variableNumberX = find(strcmp(Tplot.DesignVariableX_axis{i}, varnoList));
+        variableNumberY = find(strcmp(Tplot.DesignVariableY_axis{i}, varnoList));
+        plotdes(i).axdes = {lbl(variableNumberX).varno, ...
+                        lbl(variableNumberY).varno};
     end
     
     
@@ -209,13 +234,20 @@ function [x,param,qoi,lbl,plotdes,extraopt] = excel_parser_xray_tool(filename)
             x(i).dispname = x(i).varname;
         end
         
-        % if no solution box is given or solution box values exceed design space values, use design space
-        if(isnan(x(i).sblb) || (x(i).sblb<x(i).dslb))
-            x(i).sblb = x(i).dslb;
-        end
-        if(isnan(x(i).sbub) || (x(i).sbub>x(i).dsub))
-            x(i).sbub = x(i).dsub;
-        end
+        % If box shaped design space is not given initialize half the design space
+        designSpaceLength = x(i).dsub - x(i).dslb;
+        halfLength = designSpaceLength / 2;
+        
+        % Position the solution box centered inside the design space
+        midPoint = (x(i).dslb + x(i).dsub) / 2;
+        
+        % Set sblb and sbub to cover half the design space centered around midpoint
+        x(i).sblb = midPoint - halfLength/2;
+        x(i).sbub = midPoint + halfLength/2;
+        
+        % Just to be safe, clamp to design space bounds (optional)
+        x(i).sblb = max(x(i).sblb, x(i).dslb);
+        x(i).sbub = min(x(i).sbub, x(i).dsub);
     end
     
     
@@ -271,11 +303,31 @@ function [x,param,qoi,lbl,plotdes,extraopt] = excel_parser_xray_tool(filename)
     
 end
 
-function arrayRGB = convertRGB(rgb)
-    r = mod(rgb, 256);
-    g = floor(mod(rgb/256, 256));
-    b = floor(rgb/65536);
-    arrayRGB = [r,g,b]/255;
+function rgb = colorNameToRGB(colorName)
+    % Map common color names to RGB triplets
+    validColorNames = {'red', 'green', 'blue', 'yellow', 'black', 'white', ...
+                       'cyan', 'magenta', 'gray', 'orange', 'pink', 'purple', 'brown'};
+    rgbValues = [ ...
+        1.0, 0.0, 0.0;      % red
+        0.0, 1.0, 0.0;      % green
+        0.0, 0.0, 1.0;      % blue
+        1.0, 1.0, 0.0;      % yellow
+        0.0, 0.0, 0.0;      % black
+        1.0, 1.0, 1.0;      % white
+        0.0, 1.0, 1.0;      % cyan
+        1.0, 0.0, 1.0;      % magenta
+        0.5, 0.5, 0.5;      % gray
+        1.0, 0.65, 0.0;     % orange
+        1.0, 0.75, 0.8;     % pink
+        0.5, 0.0, 0.5;      % purple
+        0.6, 0.4, 0.2       % brown
+    ];
+
+    idx = find(strcmpi(colorName, validColorNames), 1);
+    if isempty(idx)
+        error('Color name "%s" not recognized. Valid names are: %s', colorName, strjoin(validColorNames, ', '));
+    end
+    rgb = rgbValues(idx, :);
 end
 
 function d = readNumericEntries(s)

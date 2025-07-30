@@ -45,7 +45,8 @@ function run_optimization(dataManager)
     %% Design Evaluator
     % Required: BottomupMapping and design space limits
     dataManager.DesignEvaluator = DesignEvaluatorBottomUpMapping(bottomUpMapping,...
-        dataManager.QOIs.crll,dataManager.QOIs.crul);
+        [dataManager.QuantatiesOfInterests.crll], ...
+        [dataManager.QuantatiesOfInterests.crul]);
 
     %% Achieve optimum box
     try
@@ -81,33 +82,6 @@ function run_optimization(dataManager)
         update_design_variable_lines(varIdx, dataManager);
 
     end
-    
-    % dataManager.restoreOriginalDesignVariables();
-    % 
-    % for varIndex = 1:numel(dataManager.OriginalDesignVariables)
-    %     dataManager.DesignVariables(varIndex).sblb = dataManager.OriginalDesignVariables(varIndex).sblb;
-    %     dataManager.DesignVariables(varIndex).sbub = dataManager.OriginalDesignVariables(varIndex).sbub;
-    %     dataManager.DesignVariables(varIndex).dslb = dataManager.OriginalDesignVariables(varIndex).dslb;
-    %     dataManager.DesignVariables(varIndex).dsub = dataManager.OriginalDesignVariables(varIndex).dsub;
-    % 
-    %     % Reset slider value
-    %     set(dataManager.SliderHandles(varIndex), 'Value',...
-    %         [dataManager.DesignVariables(varIndex).sblb...
-    %         dataManager.DesignVariables(varIndex).sbub]);
-    % 
-    %     % Reset box shaped solution space
-    %     set(dataManager.TextHandles.DesignBox(varIndex,1), 'String',...
-    %         sprintf('%.2f', dataManager.DesignVariables(varIndex).sblb));
-    %     set(dataManager.TextHandles.DesignBox(varIndex,2), 'String',...
-    %         sprintf('%.2f', dataManager.DesignVariables(varIndex).sbub));   
-    %     update_design_variable_lines(varIndex, dataManager)
-    % 
-    %     % Reset solution space limits
-    %     set(dataManager.TextHandles.DesignLimits(varIndex,1), 'String',...
-    %         sprintf('%.2f', dataManager.DesignVariables(varIndex).dslb));
-    %     set(dataManager.TextHandles.DesignLimits(varIndex,2), 'String',...
-    %         sprintf('%.2f', dataManager.DesignVariables(varIndex).dsub));      
-    % end
 
     % Restore the button's original appearance
     button.BackgroundColor = originalColor;

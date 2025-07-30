@@ -1,4 +1,4 @@
-function toggle_textbox(chk, dataManager, qoiIndex)
+function toggle_textbox(chk, dataManager, QuantatiesOfInterestIdx)
 %TOGGLE_TEXTBOX Callback to toggle the activation state of a QoI text box.
 %
 %   toggle_textbox(chk, dataManager, qoiIndex)
@@ -27,6 +27,6 @@ function toggle_textbox(chk, dataManager, qoiIndex)
 
     
     if isgraphics(chk) && ishandle(chk) && strcmp(chk.Type, 'uicontrol')
-        dataManager.toggleQOIStatus(qoiIndex);
+        dataManager.toggleQOIStatus(QuantatiesOfInterestIdx);
     end
 end

@@ -1,4 +1,4 @@
-function update_design_variable_lines(index, dataManager)
+function update_design_variable_lines(index, dataManager, patch)
 %UPDATE_DESIGN_VARIABLE_LINES Updates draggable boundary lines on design plots.
 %
 %   update_design_variable_lines(index, dataManager) updates the positions of
@@ -39,10 +39,12 @@ function update_design_variable_lines(index, dataManager)
         
         % Find all line objects in the current axes
         allLines = findobj(axesHandle, 'Type', 'line');
+        allPatches = findobj(axesHandle, 'Type', 'patch');
         
         % Initialize empty arrays for vertical and horizontal lines
         vLines = [];
         hLines = [];
+        patchHandle = [];
         
         % Separate vertical and horizontal lines based on UserData
         for verticallineIteration = 1:length(allLines)
@@ -57,8 +59,8 @@ function update_design_variable_lines(index, dataManager)
         end
         
         % Update the vertical lines for the given index
-        for verticalLineIteration = 1:length(vLines)
-            userData = get(vLines(verticalLineIteration), 'UserData');
+        for verticalLineItr = 1:length(vLines)
+            userData = get(vLines(verticalLineItr), 'UserData');
             if userData.index == index
                 switch userData.type
                     case 'left'
@@ -68,13 +70,19 @@ function update_design_variable_lines(index, dataManager)
                         % Update the line position based on the new value
                         newValue = dataManager.DesignVariables(index).sbub; % Assuming you want to update based on upper bound
                 end
-                set(vLines(verticalLineIteration), 'XData', [newValue newValue]);
+                set(vLines(verticalLineItr), 'XData', [newValue newValue]);
+
+                patchHandle = find_patch_for_line(vLines(verticalLineItr), allPatches);
+
+                % Vertical orientation: patch spans full Y limits, centered horizontally around xPos
+                xPatch = [newValue - patch(1), newValue + patch(1), newValue + patch(1), newValue - patch(1)];
+                set(patchHandle, 'XData', xPatch);
             end
         end
         
         % Update the horizontal lines for the given index
-        for horizontalLineIteration = 1:length(hLines)
-            userData = get(hLines(horizontalLineIteration), 'UserData');
+        for horizontalLineItr = 1:length(hLines)
+            userData = get(hLines(horizontalLineItr), 'UserData');
             if userData.index == index
                 switch userData.type
                     case 'lower'
@@ -85,7 +93,13 @@ function update_design_variable_lines(index, dataManager)
                         newValue = dataManager.DesignVariables(index).sbub; % Assuming you want to update based on upper bound
                 end
                 % Update the line position based on the new value
-                set(hLines(horizontalLineIteration), 'YData', [newValue newValue]);
+                set(hLines(horizontalLineItr), 'YData', [newValue newValue]);
+
+                patchHandle = find_patch_for_line(hLines(horizontalLineItr), allPatches);
+
+                % Horizontal orientation: patch spans full X limits, centered vertically around yPos
+                yPatch = [newValue - patch(2), newValue - patch(2), newValue + patch(2), newValue + patch(2)];
+                set(patchHandle, 'YData', yPatch);
             end
         end
     end

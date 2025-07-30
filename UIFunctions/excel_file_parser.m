@@ -35,6 +35,7 @@ function parseValues = excel_file_parser(projectRoot,varargin)
     
     try
         [x,param,qoi,lbl,plotdes,extraopt] = excel_parser_xray_tool(excelFileName);
+
         parseValues.DesignVariable = x;
         parseValues.DesignParameters = param;
         parseValues.QuantatiesOfInterest = qoi;
