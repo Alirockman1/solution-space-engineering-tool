@@ -85,34 +85,29 @@ This tool is ideal for design-space exploration, constraint sensitivity studies,
 ```plaintext
 
 SolutionSpaceToolbox/
-  GUI/                     # Self made MATLAB UI components
-    superSlider.m          # Dual sided slider
-  Images/                  # Images included in the Readme.md
-  InputReadingFunctions/   # Functions to parse and store data files
-    excel_parser_xray_tool.m    # Parses problem data from excel files
-    createBottomUpMappingFiles.m 
-  ProblemDefinition/       # Stores excel files containing engineering problems
-    XRayInput.xlsx         # Example excel files
-  SavedFiles/              # Stored good/bad points and session outputs
-  sso-toolbox/             # Subfolder developed in collaboration with Eduardo Rodrigues Della Noce
-  Systems/                 # Custom objective function definition 
-  TestScripts/             # Example script to run the *Solution Space Engineering Tool*
-  UIFunctions/             # Stored callbacks used by the GUI
-  setup_xray_toolbox.m     # Script to add paths and initialize environment
-  README.md                # Project overview and documentation
+  Examples/                   # Example scripts to test the toolbox
+    CarCrash5d/               # 5-d car crash example
+	CarCrash2d/               # 2-d car crash example
+  Images/                     # Images included in the Readme.md
+  src/   				      # Functions to parse and store data files
+    solution_space_box_xray_create_gui.m    # GUI interface for the toolbox
+    SolutionSpaceBoxXrayDataManager.m       # Data management class 
+	+BoxXRayCallback/         # Helper GUI functions
+	+BoxXRayGUI/              # Main GUI components
+	+BoxXRayOperations/       # GUI update functions
+  Toolbox/                 
+    SolutionSpaces/           # Subfolder developed in collaboration with Eduardo Rodrigues Della Noce
+	FigureHandling/           # Subfolder for plotting individual plots
+	Colors/                   # Subfolder for handling feature colors
+	BottomUpMappingInterface/ # Subfolder developed in collaboration with Eduardo Rodrigues Della Noce
+  setup_xray_toolbox.m        # Script to add paths and initialize environment
+  README.md                   # Project overview and documentation
 ```
 
 ---
 
 ## Requirements
 - MATLAB 2019b or newer
-
----
-
-## Inputs
-1. Name of excel file containing the problem definition -> "XRayInput_new" for test
-2. Function number -> "12" for test
-	Note: Function needs to be added in the *Systems/*
 
 ---
 

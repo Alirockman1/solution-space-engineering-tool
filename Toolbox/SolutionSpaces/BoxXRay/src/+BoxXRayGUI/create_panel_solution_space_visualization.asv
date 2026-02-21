@@ -1,0 +1,107 @@
+function create_panel_solution_space_visualization(mainLayout,dataManager)
+%CREATE_PANEL_SOLUTION_SPACE_VISUALIZATION Create solution space visualization panel
+%   CREATE_PANEL_SOLUTION_SPACE_VISUALIZATION creates a panel containing a
+%   grid of interactive axes for visualizing 2D projections of the solution
+%   space. Each axis displays a pair of design variables with design samples
+%   colored by performance and draggable boundary lines.
+%
+%   CREATE_PANEL_SOLUTION_SPACE_VISUALIZATION(MAINLAYOUT, DATAMANAGER)
+%   creates the visualization panel and populates it with axes for each
+%   desired variable pair plot.
+%
+%   Inputs:
+%       - MAINLAYOUT : uigridlayout
+%           -- parent layout where the panel will be placed (column 2)
+%       - DATAMANAGER : SolutionSpaceBoxXrayDataManager
+%           -- data manager containing desired plot pairs, maximum plots per
+%           row, and storage for axes handles
+%
+%   Outputs:
+%       None (axes handles stored in dataManager.PlotAxesHandles, plots
+%       rendered via solution_space_plot_axis_patch)
+%
+%   See also solution_space_plot_axis_patch, create_tab_design_variables.
+
+%   Developed at the Laboratory for Product Development and Lightweight Design
+%   (LPL), Technical University of Munich (TUM), 2025.
+%   Copyright 2025 Eduardo Rodrigues Della Noce (Contributor)
+%   Copyright 2025 Ali Abbas Kapadia (Main Author)
+%   SPDX-License-Identifier: Apache-2.0
+
+%   Licensed under the Apache License, Version 2.0 (the "License");
+%   you may not use this file except in compliance with the License.
+%   You may obtain a copy of the License at
+% 
+%       http://www.apache.org/licenses/LICENSE-2.0
+% 
+%   Unless required by applicable law or agreed to in writing, software
+%   distributed under the License is distributed on an "AS IS" BASIS,
+%   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+%   See the License for the specific language governing permissions and
+%   limitations under the License.
+
+    % Column 2: Create the Plot Container using uipanel
+    axisPanel = uipanel(mainLayout,...
+        'Title', 'Solution Space',...
+        'Scrollable', 'on');
+    axisPanel.Layout.Row = 1;
+    axisPanel.Layout.Column = 2;
+
+    % 2. Create the uigridlayout inside the panel
+    % Note: The 1 additional plot is to ensure the legends are in place and
+    % non obstructing
+    plotDesiredPairs = dataManager.get_plot_desired_pairs;
+    nPlots = size(plotDesiredPairs,1);
+    nColumns = min(dataManager.MaximumNumberOfPlotsPerRow, nPlots + 1);
+    nRows = ceil((nPlots + 1) / nColumns);
+    
+    % Use the uigridlayout function (from uifigure context)
+    plotGrid = uigridlayout(axisPanel, [nRows, nColumns]); 
+    plotGrid.Scrollable = 'on';
+    plotGrid.Padding = [10 10 10 10]; % Set padding around the grid [left bottom right top]
+    plotGrid.RowSpacing = 10;         % Define vertical space between plots
+    plotGrid.ColumnSpacing = 10;      % Define horizontal space between plots
+    plotGrid.BackgroundColor = [1 1 1];
+    plotGrid.ColumnWidth = repmat({'1x'}, 1, nColumns); % Distribute horizontal space evenly
+    plotGrid.RowHeight = repmat({'fit'}, 1, nRows); % fit the content vertically (adjusted later)
+    
+    
+    % 3. Preallocate axes handles
+    dataManager.PlotAxesHandles = gobjects(1, nPlots+1);
+    
+    for i = 1:nPlots
+        % Calculate position in the grid (uigridlayout uses top-to-bottom, left-to-right indexing)
+        rowCurrent = floor((i - 1) / nColumns) + 1; % 1, 1, 1, 2, 2, 2, ...
+        columnCurrent = mod(i - 1, nColumns) + 1;      % 1, 2, 3, 1, 2, 3, ...
+    
+        % Create Ui Axes (uiaxes) instead of old 'axes'
+        hAx = uiaxes('Parent', plotGrid, ...
+            'Tag', sprintf('Plot%d', i), ...
+            'XLimMode', 'manual', ...
+            'YLimMode', 'manual', ...
+            'NextPlot', 'replacechildren');
+    
+        % Position the axes using the layout property
+        hAx.Layout.Row = rowCurrent;
+        hAx.Layout.Column = columnCurrent;
+        
+        % Store the handle
+        dataManager.PlotAxesHandles(i) = hAx;
+    
+        % Disable default tools but keep object interactivity
+        axis(dataManager.PlotAxesHandles(i), 'manual');
+        axis(dataManager.PlotAxesHandles(i), 'square');
+        zoom(dataManager.PlotAxesHandles(i), 'off');
+        pan(dataManager.PlotAxesHandles(i), 'off');
+        rotate3d(dataManager.PlotAxesHandles(i), 'off');
+        set(dataManager.PlotAxesHandles(i), ...
+            'HitTest', 'on', 'PickableParts', 'all');
+    end
+
+    BoxXRayGUI.solution_space_plot_axis_patch(dataManager);
+
+    drawnow;
+    widthSizeSubpanels = plotGrid.Children(1).Position(3); % get horizontal size of grid
+    plotGrid.RowHeight = repmat({widthSizeSubpanels}, 1, nRows); % apply same to vertical
+    drawnow;
+end

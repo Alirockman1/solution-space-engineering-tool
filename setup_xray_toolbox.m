@@ -33,6 +33,7 @@ if contains(setupFilePath,'LiveEditorEvaluationHelper')
 end
 toolboxFolderPath = replace(erase(setupFilePath,mfilename),'\','/');
 addpath(toolboxFolderPath);
+cd(toolboxFolderPath);
 clear setupFilePath
 
 
@@ -40,13 +41,10 @@ clear setupFilePath
 % 'foldername',includeSubfolder
 addDirectory = {...
     ... % public folders
-    'GUI/',true;...
-    'ProblemDefinition/',true;...
-    'TestScripts/',true;...
-    'InputReadingfunctions/',true;...
-    'UIFunctions/',true;...
-    'SavedFiles/',true;...
-    'Systems/',true};
+    'src/',true;...
+    'Toolbox/',true;...
+    'Examples/',true;...
+    'Results/',true};
 
 for i=1:size(addDirectory,1)
     currentPath = [toolboxFolderPath,addDirectory{i,1}];
@@ -66,10 +64,6 @@ clear addDirectory i currentPath totalCurrentPath
 
 %% clear remaining variables
 clear toolboxFolderPath  
-
-
-%% Add SSO-Toolbox
-run('./sso-toolbox/setup_sso_toolbox.m');
 
 %% Compatability check %%
 

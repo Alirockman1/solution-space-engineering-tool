@@ -1,0 +1,109 @@
+function create_tab_system_parameters(tabSystemParameters,dataManager)
+%CREATE_TAB_SYSTEM_PARAMETERS Builds the "System Parameters" tab UI.
+%   CREATE_TAB_SYSTEM_PARAMETERS(TAB, DATAMANAGER) creates a scrollable user
+%   interface displaying all constant design parameters along with their
+%   associated comments. Users can **view and edit** both the numeric value
+%   and the description/comment of each design parameter. Edits are written
+%   back to the dataManager via an update method.
+%
+%   INPUTS:
+%       tabSystemParameters  - uitab handle where the UI is placed
+%       dataManager          - Object managing design parameters.
+%                              Expected methods:
+%           .get_design_parameters()          - Returns numeric values
+%           .get_design_parameters_comment()  - Returns comments as cell array
+%           .get_design_parameters_display_names() - Returns display names
+%           .update_design_parameter(i, field, newValue) - Updates value/comment
+%
+%   FUNCTIONALITY:
+%       - Displays a scrollable grid of design parameters.
+%       - Each row contains:
+%           1. Parameter display name (label)
+%           2. Editable numeric field for the value
+%           3. Editable text field for the comment
+%       - Right-align numeric values for readability.
+%       - Any edit triggers a callback that updates the dataManager.
+%
+%   UI COMPONENTS:
+%       - uigridlayout for responsive layout
+%       - uipanel for grouping the scrollable display
+%       - uilabel for display names
+%       - uieditfield for editable numeric and text fields
+%
+%   NOTES:
+%       - The scrollable area grows with the number of parameters.
+%       - Editing a field automatically updates the dataManager.
+%       - Layout: Column 1 = label, Column 2 = value, Column 3 = comment.
+
+%   Developed at the Laboratory for Product Development and Lightweight Design
+%   (LPL), Technical University of Munich (TUM), 2025.
+%   Copyright 2025 Eduardo Rodrigues Della Noce (Contributor)
+%   Copyright 2025 Ali Abbas Kapadia (Main Author)
+%   SPDX-License-Identifier: Apache-2.0
+
+%   Licensed under the Apache License, Version 2.0 (the "License");
+%   you may not use this file except in compliance with the License.
+%   You may obtain a copy of the License at
+% 
+%       http://www.apache.org/licenses/LICENSE-2.0
+% 
+%   Unless required by applicable law or agreed to in writing, software
+%   distributed under the License is distributed on an "AS IS" BASIS,
+%   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+%   See the License for the specific language governing permissions and
+%   limitations under the License.
+
+    designParameterDisplayNames = dataManager.get_design_parameters_display_names;
+    designParameters = dataManager.get_design_parameters;
+    designUnits = dataManager.get_design_parameters_unit;
+    designParametersComment = dataManager.get_design_parameters_comment;
+
+    nDesignParameter = length(designParameterDisplayNames);
+
+    % Main Grid on Tab (1 row only)
+    mainGridSelectedValues = uigridlayout(tabSystemParameters, [1 1]);
+    mainGridSelectedValues.RowHeight = {'1x'};  % Top scroll area grows, bottom fixed height
+    mainGridSelectedValues.ColumnWidth = {'1x'};
+    
+    % ---- Scrollable Display Panel (Row 1) ----
+    designParameterPanel = uipanel(mainGridSelectedValues, ...
+        'Title', 'Constant Design Parameters', ...
+        'Units', 'normalized');
+    
+    designParameterPanel.Layout.Row = 1;
+    
+    % Grid inside the panel
+    designParameterGrid = uigridlayout(designParameterPanel, [nDesignParameter, 3]);
+    designParameterGrid.RowHeight = [repmat({30}, 1, nDesignParameter), 25];
+    designParameterGrid.ColumnWidth = {'1x', '1x', '5x'};   % Label width, flexible textbox
+    designParameterGrid.Scrollable = 'on';
+    designParameterGrid.Padding = [8 8 8 8];
+    
+    % ---- Loop: Design Parameter ----
+    for iParameter = 1:nDesignParameter
+        % create the design variable title text
+        designVariableTitle = sprintf('%s [%s] :', designParameterDisplayNames{iParameter}, designUnits{iParameter});
+        label = uilabel(designParameterGrid, ...
+            'Text', designVariableTitle, ...
+            'HorizontalAlignment', 'center');
+        label.Layout.Row = iParameter;
+        label.Layout.Column = 1;
+    
+        valueField = uieditfield(designParameterGrid, 'numeric', ...
+            'Value', designParameters(iParameter), ...
+            'Enable', 'on', ...
+            'HorizontalAlignment', 'center',...
+            'ValueChangedFcn', @(src,event) dataManager.update_design_parameters(src.Value, iParameter));
+        valueField.Layout.Row = iParameter;
+        valueField.Layout.Column = 2;
+
+        commentField =  uieditfield(designParameterGrid, 'text', ...
+            'Value', designParametersComment{iParameter}, ...
+            'Editable', 'off', ...
+            'HorizontalAlignment', 'left');
+        commentField.Layout.Row = iParameter;
+        commentField.Layout.Column = 3;
+   
+    end
+    
+end
